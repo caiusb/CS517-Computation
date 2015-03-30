@@ -1,0 +1,127 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[paper=letterpaper,margin=1in]{geometry}
+
+
+%% minimal example of some latex stuff
+
+\usepackage{xspace,graphicx,amsmath,amsthm,amssymb,xcolor}
+
+
+\newtheorem{theorem}{Theorem}
+
+%% code boxes
+
+\usepackage{varwidth}
+\newcommand{\fcodebox}[1]{%
+    \framebox{\codebox{#1}}%
+}
+\newcommand{\codebox}[1]{%
+        \begin{varwidth}{\linewidth}%
+        \begin{tabbing}%
+            ~~~\=\quad\=\quad\=\quad\=\quad\=\quad\=\kill
+            #1
+        \end{tabbing}%
+        \end{varwidth}%
+}
+
+%% complexity classes
+
+\newcommand{\cc}[1]{\ensuremath{\textsf{#1}}\xspace}
+\renewcommand{\P}{\cc{P}}
+\newcommand{\NP}{\cc{NP}}
+\newcommand{\EXP}{\cc{EXP}}
+\newcommand{\coNP}{\cc{coNP}}
+\renewcommand{\L}{\cc{L}}
+\newcommand{\NL}{\cc{NL}}
+\newcommand{\PH}{\cc{PH}}
+\newcommand{\PSPACE}{\cc{PSPACE}}
+\newcommand{\Ppoly}{\cc{P/poly}}
+\newcommand{\ZPP}{\cc{ZPP}}
+\newcommand{\BPP}{\cc{BPP}}
+\newcommand{\RP}{\cc{RP}}
+\newcommand{\sharpP}{\cc{$\sharp$P}}
+\newcommand{\AM}{\cc{AM}}
+\newcommand{\MA}{\cc{MA}}
+\newcommand{\IP}{\cc{IP}}
+
+
+\newcommand{\DTIME}{\cc{DTIME}}
+\newcommand{\NTIME}{\cc{NTIME}}
+\newcommand{\DSPACE}{\cc{DSPACE}}
+\newcommand{\NSPACE}{\cc{NSPACE}}
+\newcommand{\SIZE}{\cc{SIZE}}
+
+
+\newcommand{\karp}{\le_{\textsf{P}}}
+
+%% decision problems
+
+\newcommand{\problem}[1]{\ensuremath{\textsc{#1}}\xspace}
+\newcommand{\SAT}{\problem{sat}}
+\newcommand{\ThreeSAT}{\problem{3sat}}
+
+%%%%
+
+\begin{document}
+
+\section*{LaTeX examples}
+
+\begin{theorem}[Ladner]
+    If $\P \ne \NP$ then there exists problems in $\NP$ which are neither \NP-complete nor in \P.
+\end{theorem}
+\begin{proof}
+    We will demonstrate two problems $L_0$ and $L_1$ satisfying:
+    \begin{itemize}
+        \item $L_0, L_1 \in \NP \setminus \P$
+        \item $L_0 \not\karp L_1$
+        \item $L_1 \not\karp L_0$
+    \end{itemize}
+    This will imply that $L_0$ is not \NP-complete, since in particular the \NP language $L_1$ does not Karp-reduce to it.
+
+The idea is to design $L_0$ and $L_1$ so that $L_0 \cap L_1 = \emptyset$ but $L_0 \cup L_1 = \ThreeSAT$. Hence, we will ``fill up'' $L_1$ with \ThreeSAT for some time, then switch to ``filling up'' $L_1$ with \ThreeSAT, and so on. 
+
+How will we choose when to ``switch'' between $L_0$ and $L_1$? By trying to diagonalize against all candidate Karp reductions from $L_0$ to $L_1$. 
+
+Let $M_1, M_2, \ldots$ be an enumeration of polynomial-time TMs (with output), with corresponding polynomial time bounds $p_1, p_2, \ldots$. Then our two languages $L_0$ and $L_1$ above are constructed via $L_b = L(M^*_b)$, where:
+\begin{center}
+    \fcodebox{
+        \underline{$M^*_0(x)$:} \\
+        \> $b := 0$ \\
+        \> for a total of $|x|$ steps: \\
+        \> \> for $i = 1, 2, \ldots$: \\
+        \> \> \> for $j = 1, 2, \ldots$: \\
+        \> \> \> \> {\sl // compute via exponential-} \\
+        \> \> \> \> {\sl // time algorithm:} \\
+        \> \> \> \> $\alpha := [ \langle j \rangle \overset?\in L_{b}]$ \\
+        \> \> \> \> $\beta := [ M_i(\langle j\rangle ) \overset?\in L_{1-b}]$ \\
+        \> \> \> \> if $\alpha \ne \beta$: \\
+        \> \> \> \> \> $b := 1 - b$ \\
+        \> \> \> \> \> next $i$ \\
+        \> if \underline{$b=0$}: \\
+        \> \> run \NP-algo for $x \overset?\in \ThreeSAT$ \\
+        \> else return 0
+    }
+    \qquad
+    \fcodebox{
+        \underline{$M^*_1(x)$:} \\
+        \> $b := 0$ \\
+        \> for a total of $|x|$ steps: \\
+        \> \> for $i = 1, 2, \ldots$: \\
+        \> \> \> for $j = 1, 2, \ldots$: \\
+        \> \> \> \> {\sl // compute via exponential-} \\
+        \> \> \> \> {\sl // time algorithm:} \\
+        \> \> \> \> $\alpha := [ \langle j \rangle \overset?\in L_{b}]$ \\
+        \> \> \> \> $\beta := [ M_i(\langle j\rangle ) \overset?\in L_{1-b}]$ \\
+        \> \> \> \> if $\alpha \ne \beta$: \\
+        \> \> \> \> \> $b := 1 - b$ \\
+        \> \> \> \> \> next $i$ \\
+        \> if \underline{$b=1$}: \\
+        \> \> run \NP-algo for $x \overset?\in \ThreeSAT$ \\
+        \> else return 0
+    }
+\end{center}
+It now occurs to me that this was only meant to be a simple example of formatting macros. So maybe I should stop so as to not spoil the surprise.
+\end{proof}
+
+\end{document}
