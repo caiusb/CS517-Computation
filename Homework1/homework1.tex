@@ -57,9 +57,24 @@
 
 %% decision problems
 
-\newcommand{\problem}[1]{\ensuremath{\textsc{#1}}\xspace}
-\newcommand{\SAT}{\problem{sat}}
-\newcommand{\ThreeSAT}{\problem{3sat}}
+\newcommand{\prob}[1]{\ensuremath{\textsc{#1}}\xspace}
+\newcommand{\SAT}{\prob{sat}}
+\newcommand{\ThreeSAT}{\prob{3sat}}
+
+%% homework templates
+
+\newcounter{problem}
+\newcounter{subproblem}[problem]
+
+\newcommand{\problem}[1]{
+	\stepcounter{problem}
+	\textbf{\theproblem. #1 \\}
+}
+
+\newcommand{\subproblem}[1]{
+	\stepcounter{subproblem}
+	\textbf{\alph{subproblem}) #1 \\}
+}
 
 %%%%
 
