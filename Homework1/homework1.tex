@@ -7,7 +7,6 @@
 
 \usepackage{xspace,graphicx,amsmath,amsthm,amssymb,xcolor}
 
-
 \newtheorem{theorem}{Theorem}
 
 %% code boxes
@@ -66,15 +65,19 @@
 \newcounter{problem}
 \newcounter{subproblem}[problem]
 
-\newcommand{\problem}[1]{
-	\stepcounter{problem}
-	\textbf{\theproblem. #1 \\}
-}
+\newenvironment{problem}%
+{%
+	\stepcounter{problem}%
+	\textbf{\theproblem.}
+	\large
+}{\\}%
 
-\newcommand{\subproblem}[1]{
-	\stepcounter{subproblem}
-	\textbf{\alph{subproblem}) #1 \\}
-}
+\newenvironment{subproblem}%
+{%
+	\stepcounter{subproblem}%
+	\textbf{\alph{subproblem})}
+	\large
+}{\\}%
 
 %%%%
 
@@ -84,5 +87,15 @@
 \begin{document}
 
 \maketitle
+
+\begin{problem}
+Consider the following variant of a single-tape Turing machine. 
+At each step, it can either move one cell to the right or reset the tape-head to the leftmost cell of the tape. 
+In particular, it cannot (natively) move just one cell to the left like a “standard” TM.
+Show that this TM variant is equivalent in its computational power to a standard TM. 
+In particular, this involves showing that the variant can simulate a standard TM, and vice-versa.
+\end{problem}
+
+Here comes the solution
 
 \end{document}
