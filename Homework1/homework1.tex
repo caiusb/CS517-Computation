@@ -81,6 +81,10 @@
 
 %%%%
 
+\newcommand{\tm}{Turing Machine}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+
 \title{Homework 1}
 \author{Caius Brindescu}
 
@@ -97,7 +101,27 @@ In particular, this involves showing that the variant can simulate a standard TM
 \end{problem}
 
 \begin{proof}
-Here comes the solution
+
+The definition of the \tm{} variant is:
+%
+\beq
+	Q \times \Gamma \leftarrow Q \times \Gamma \times \{L,0,1\}
+\eeq
+% 
+where $L$ is the command to reset the tape to the leftmost cell of the tape.
+
+I will prove that the \tm{} variant can simulate a regular \tm{}.
+
+To simulate a move to the left cell, I will be able to mark the previous cell with the following algorithm:
+
+\fcodebox{
+\underline{moveTapeOneCellRight:} \\
+\> mark current cell
+\> move tape to the left most cell
+\> scan until 
+}
+
+
 \end{proof}
 
 \end{document}
