@@ -44,7 +44,6 @@
 \newcommand{\MA}{\cc{MA}}
 \newcommand{\IP}{\cc{IP}}
 
-
 \newcommand{\DTIME}{\cc{DTIME}}
 \newcommand{\NTIME}{\cc{NTIME}}
 \newcommand{\DSPACE}{\cc{DSPACE}}
@@ -96,7 +95,8 @@
 Consider the following variant of a single-tape Turing machine. 
 At each step, it can either move one cell to the right or reset the tape-head to the leftmost cell of the tape. 
 In particular, it cannot (natively) move just one cell to the left like a ÒstandardÓ TM.
-Show that this TM variant is equivalent in its computational power to a standard TM. 
+
+Show that this TM variant is equivalent in its computational power to a standard TM. 
 In particular, this involves showing that the variant can simulate a standard TM, and vice-versa.
 \end{problem}
 
@@ -116,11 +116,21 @@ To simulate a move to the left cell, I will be able to mark the previous cell wi
 
 \fcodebox{
 \underline{moveTapeOneCellRight:} \\
-\> mark current cell
-\> move tape to the left most cell
+\> mark current cell \\
+\> move tape to the left most cell \\
 \> scan until 
 }
 
+Similarly, I will now prove that this machine can be simulated by a regular Turing Machine.
+
+To simulate moving to the end of the tape, we will simply move one stop to the left, until the end of the tape is reached.
+To aid in the detection of the beginning of the tape, before the machine starts, I will make the first cell with a special symbol.
+Then, returning to the beginning becomes:
+
+\fcodebox{
+\underline{rewindTape:} \\
+>\ scan tape until start mark is found
+}
 
 \end{proof}
 
