@@ -162,6 +162,31 @@ Show that the following language is Turing-decidable:
 \end{subproblem}
 
 \begin{proof}
+
+I am deriving the proof from the proof for Theorem 19, section 37.12 of the Jeff Erickson's Lecture 37.
+
+Similarly, I will define the following \tm{}:
+
+\fcodebox{
+on input $\langle M,x \rangle$: \\
+\> simulate M on x, one step at a time: \\
+\> \> if M writes over a blank character, then accept \\
+\> \> else if M accepts then reject \\
+\> \> else increment $counter$ \textit{// stored on tape}\\
+\> \> if $counter > C$ then reject
+}
+
+In the above algorithm, I define C as being the total number of configurations a \tm{} can have without using more tape than the size of the input.
+Therefore:
+\beq
+	C = |Q| \times |\Gamma| \times |w|
+\eeq
+
+The \tm{} described above will always terminate.
+If the \tm{} takes more steps than C, then I am repeating a configuration, and it enters an infinite loop.
+Therefore, it will never overwrite a blank character, so I can safely reject that input.
+
+Using this, I conclude that the proposed language is Turing-decidable
 \end{proof}
 
 \begin{subproblem}
@@ -171,5 +196,26 @@ Show that the following language is not Turing-decidable:
 L = \{ \langle M, x \rangle | M \text{ eventually changes a space character to \# on input } x \}
 \eeq
 \end{subproblem}
+
+\begin{proof}
+
+Consider the following algorithm:
+
+\fcodebox{
+on input $\langle M, x \rangle$:\\
+\> write down $M^{*}$: \\
+\> $M^{*}$: \fcodebox{
+	on input $x$: \\
+	\> run $M$ on $x$ \\
+	\> if $M$ accepts, then move right and write '\#' to the tape \\
+	\> else write '1' to the tape
+} \\
+\> return $M^{*} \stackrel{?}{\in} L$
+}
+
+If we can decide if $M^{*} \in L$, then we can decide the acceptance problem.
+Therefore: $ L_{acc} \leq_{T} L $, so $L$ is not Turing-decidable.
+
+\end{proof}
 
 \end{document}
