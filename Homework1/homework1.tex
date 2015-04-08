@@ -112,16 +112,29 @@ where $L$ is the command to reset the tape to the leftmost cell of the tape.
 
 I will prove that the \tm{} variant can simulate a regular \tm{}.
 
-To simulate a move to the left cell, I will be able to mark the previous cell with the following algorithm:
+First, I will mark the current cell, each time I do a right shift:
 
 \fcodebox{
 \underline{moveTapeOneCellRight:} \\
-\> mark current cell \\
 \> move tape to the left most cell \\
-\> scan until 
+\> scan until you find the mark \\
+\> move right \textit{//this positions me on the original location} \\
+\> mark the symbol on the tape \\
+\> move right \textit{//the actual move right operation}
 }
 
-Similarly, I will now prove that this machine can be simulated by a regular Turing Machine.
+Then, I will use this algorithm to move the tape to the left:
+
+\fcodebox{
+\underline{moveTapeOneCellLeft:} \\
+\> move tape to the left most cell \\
+\> scan until I find the last mark
+\> remove the mark
+}
+
+These two algorithms show that a standard \tm{} can be simulated by our variant.
+
+Similarly, I will now prove that this machine can be simulated by a regular \tm{}.
 
 To simulate moving to the end of the tape, we will simply move one stop to the left, until the end of the tape is reached.
 To aid in the detection of the beginning of the tape, before the machine starts, I will make the first cell with a special symbol.
@@ -129,9 +142,11 @@ Then, returning to the beginning becomes:
 
 \fcodebox{
 \underline{rewindTape:} \\
->\ scan tape until start mark is found
+\> scan tape until start mark is found
 }
 
+This shows that the variant is just as powerful as a regular \tm{}.
+\end{proof}
 \end{proof}
 
 \end{document}
