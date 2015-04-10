@@ -226,6 +226,87 @@ Prove that if $L$ is Turing decidable, then so is $L^{*}$.
 \end{subproblem}
 
 \begin{proof}
+
+For simplicity, I assume that the words in L all have the same number of ''bits``. 
+I will construct a \tm{} $M^{*}$ as follows:
+
+\fcodebox{
+on input $\langle M^{*}, x^{*} \rangle$: \\
+\> split each input word $w$ into $w_{1}, w_{2}, \ldots w_{k}$ where $w=w_{1}w_{2}\ldots w_{k}$ and each $w_{i} \in L$ \\
+\> write the split words onto the tape, forming string $x$ \\
+\> run $M$ on $x$ \\
+\> if $M$ accepts, then accept \\
+\> if $M$ rejects, then reject
+}
+
+Since $x^{*} \in L^{*}$ is formed by concatenating words in $L$, the input $x$ will only contain strings from $L$.
+Therefore $M$ will accept. This means that our \tm{} $M^{*}$ will accept $x^{*}$.
+
+Alternatively, if the machine is fed an input that is not in $L^{*}$, then the decomposition is invalid and $M$ will reject the input, causing $M^{*}$ to reject.
+
+Therefore, I conclude that $L^{*}$ is Turing-decidable.
+
+\end{proof}
+
+\begin{subproblem}
+Prove that if $L$ is Turing-recognizable then so is $L^{*}$
+\end{subproblem}
+
+\begin{proof}
+The proof follows the same outline as in point a).
+I will construct a \tm{} $M^{*}$ described by the following code:
+
+\fcodebox{
+on input $\langle M^{*}, x^{*} \rangle$: \\
+\> split each input work $w$ into $w_{1}, w_{2}, \ldots w_{k}$ where $w=w_{1}w_{2}\ldots w_{k}$ and each $w_{i} \in L$ \\
+\> write the split words onto the tape, forming string $x$ \\
+\> run $M$ on $x$ \\
+\> if $M$ accepts, then accept
+}
+
+Similarly, if an input is in $L^{*}$, then there will exist a decomposed string $x \in L$.
+Since $L$ is Turing-recognizable, then $M$ will accept the string.
+This causes $M^{*}$ to accept $L^{*}$.
+This means that $L^{*}$ is Turing-recognizable.
+
+\end{proof}
+
+\begin{problem}
+Let $\#$ be special input/tape symbol distinct from 0, 1 or the blank symbol.
+Show that $L$ is Turing-recognizable if and only if there exists a Turing-decidable language $L'$ such that:
+\beq
+	L=\{x \in \{0,1\}^{*} | \exists y \in \{0,1\}^{*} : x \# y \in L'\}
+\eeq
+\end{problem}
+
+\begin{proof}
+First, let's prove that if $L'$ is Turing-decidable then $L$ is Turing-recognizable.
+
+$L'$ is Turing-decidable, therefore there exists a \tm{} $M'$ that decides $L'$. $L$ is defined as:
+\beq
+	L=\{x | \exists y: x\# y \in L'\}
+	\label{eq:L}
+\eeq
+
+I will construct a \tm{} $M$ that recognizes $L$:
+
+\fcodebox{
+on input $x$: \\
+\> append $\#$ to the input \\
+\> append a 0 character to the input \\
+\> run $M'$ on the new input ($x'$) \\
+\> if $M'$ accepts then accept \\
+\> if $M'$ rejects then reject
+}
+
+This machine can recognize $L$, therefore $L$ is Turing-recognizable.
+
+Now we have to prove that if $L$ is Turing-recognizable, then $L'$ is Turing decidable.
+$L$ is Turing-recognizable, therefore there exists a \tm{} M that can recognize $L$.
+$L$ can be written as shown in equation~\ref{eq:L}.
+
+I now want to describe a decidable language $L'$ such that if $x \in L$ then $M$ accepts $x$ there exists a string $t$ s.t. $x\#t \in L'$.
+
 \end{proof}
 
 \end{document}
