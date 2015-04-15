@@ -1,0 +1,154 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[paper=letterpaper,margin=1in]{geometry}
+
+
+%% minimal example of some latex stuff
+
+\usepackage{xspace,graphicx,amsmath,amsthm,amssymb,xcolor}
+
+
+\newtheorem{theorem}{Theorem}
+
+%% code boxes
+
+\usepackage{varwidth}
+\newcommand{\fcodebox}[1]{%
+    \framebox{\codebox{#1}}%
+}
+\newcommand{\codebox}[1]{%
+        \begin{varwidth}{\linewidth}%
+        \begin{tabbing}%
+            ~~~\=\quad\=\quad\=\quad\=\quad\=\quad\=\kill
+            #1
+        \end{tabbing}%
+        \end{varwidth}%
+}
+
+%% complexity classes
+
+\newcommand{\cc}[1]{\ensuremath{\textsf{#1}}\xspace}
+\renewcommand{\P}{\cc{P}}
+\newcommand{\NP}{\cc{NP}}
+\newcommand{\EXP}{\cc{EXP}}
+\newcommand{\coNP}{\cc{coNP}}
+\renewcommand{\L}{\cc{L}}
+\newcommand{\NL}{\cc{NL}}
+\newcommand{\PH}{\cc{PH}}
+\newcommand{\PSPACE}{\cc{PSPACE}}
+\newcommand{\Ppoly}{\cc{P/poly}}
+\newcommand{\ZPP}{\cc{ZPP}}
+\newcommand{\BPP}{\cc{BPP}}
+\newcommand{\RP}{\cc{RP}}
+\newcommand{\sharpP}{\cc{$\sharp$P}}
+\newcommand{\AM}{\cc{AM}}
+\newcommand{\MA}{\cc{MA}}
+\newcommand{\IP}{\cc{IP}}
+
+
+\newcommand{\DTIME}{\cc{DTIME}}
+\newcommand{\NTIME}{\cc{NTIME}}
+\newcommand{\DSPACE}{\cc{DSPACE}}
+\newcommand{\NSPACE}{\cc{NSPACE}}
+\newcommand{\SIZE}{\cc{SIZE}}
+
+
+\newcommand{\karp}{\le_{\textsf{P}}}
+
+%% decision problems
+
+\newcommand{\prob}[1]{\ensuremath{\textsc{#1}}\xspace}
+\newcommand{\SAT}{\prob{sat}}
+\newcommand{\ThreeSAT}{\prob{3sat}}
+
+%% homework templates
+
+\newcounter{problem}
+\newcounter{subproblem}[problem]
+
+\newenvironment{problem}%
+{%
+	\stepcounter{problem}%
+	\textbf{\theproblem.}
+	\large
+}{\\}%
+
+\newenvironment{subproblem}%
+{%
+	\stepcounter{subproblem}%
+	\textbf{\alph{subproblem})}
+	\large
+}{\\}%
+
+%%%%
+
+\newcommand{\tm}{Turing Machine}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+
+\title{Homework 2}
+\author{Caius Brindescu}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+%
+Let $A$ and $B$ be decision problems and define
+\[
+    A \oplus B \overset{\scriptsize\textrm{def}}= 
+    \{ x \mid x \mbox{ is in exactly one of } A, B \}
+\]
+Show that $\NP \cap \coNP$ is closed under the $\oplus$ operation.
+\end{problem}
+
+%%%%
+\begin{proof}
+\end{proof}
+
+
+\begin{problem}
+In this problem DNF refers to disjunctive normal form ({\sc or} of {\sc and} of literals) and CNF refers to conjunctive normal form ({\sc and} of {\sc or} of literals). Define the following:
+\begin{align*}
+    \textsc{cnf-sat} &= \{ \phi \mid \phi \mbox{ is a satisfiable boolean CNF formula}\} \\
+    \textsc{dnf-sat} &= \{ \phi \mid \phi \mbox{ is a satisfiable boolean DNF formula}\} 
+\end{align*}
+Prove that $\P = \NP$ if and only if $\textsc{cnf-sat} \karp \textsc{dnf-sat}$.
+
+{\em Hint:} in one direction, the Karp reduction is stupid.
+\end{problem}
+
+%%%%%%
+
+
+\begin{problem}
+Show that the following problem is \NP-complete:
+\[
+    \{ \phi \mid \phi \mbox{ is a satisfiable boolean formula in which no variable appears more than 5 times}\}
+\]
+\end{problem}
+
+%%%%%%%%
+
+\begin{problem}
+Show that the following problem is \NP-complete: given a set of linear inequalities over a set of variables $x_1, \ldots, x_n$, determine whether there is an assignment of {\em integers} to the $x_i$'s that satisfies all inequalities.
+
+{\em Example:}
+\begin{align*}
+    x_1 + 3x_2 - x_5 &\ge 3 \\
+    2x_2 - x_4 &\le x_3 \\
+    x_1 + x_2 + x_3 + x_4 + x_5 &\ge 0
+\end{align*}
+is satisfied by $x_1 = 10$; $x_2 = x_3 = x_4 = x_5 = 0$ (among many others).
+\end{problem}
+
+%%%%%%%%%%
+
+\begin{problem}
+A 3-coloring of a graph is a way to color each vertex red, green, or blue so that no edge in the graph has endpoints with the same color. Determining whether a graph is 3-colorable is \NP-complete.
+
+Suppose you have a subroutine that tells you whether the given graph has a 3-coloring (i.e., it responds {\sc yes} or {\sc no}). Show how to use the subroutine to compute a 3-coloring of any 3-colorable graph (i.e., output a legal assignment of colors to the vertices).
+\end{problem}
+
+\end{document}
