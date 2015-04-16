@@ -158,6 +158,15 @@ Show that the following problem is \NP-complete:
 \begin{proof}
 I will name the problem as $\textsc{5var-SAT}$.
 I will try to prove that $\textsc{SAT} \karp \textsc{5var-SAT}$.
+
+I can use the following algorithm to convert and \textsc{SAT} problem to a \textsc{5var-SAT} problem in $\P$ time.
+For each variable that occurs more than five times, each occurance that happens after the fifth will be replaced by a new variable.
+I do this until I have an expression where each variable occurs at most five times.
+
+The algorithm runs in $P$ time, since the output is of the same size as the input.
+Also, in the worst case, I will only create $|v| / 5$ new variables, where $|v|$ is the number of input variables.
+
+Since every $\textsc{SAT}$ problem can be reduced to a $\textsc{5var-SAT}$ problem, $\textsc{5var-SAT}$ is $\NP$-complete.
 \end{proof}
 
 \begin{problem}
