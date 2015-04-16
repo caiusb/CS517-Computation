@@ -54,6 +54,7 @@
 
 
 \newcommand{\karp}{\le_{\textsf{P}}}
+\newcommand{\notkarp}{\nleq_{\textsf{P}}}
 
 %% decision problems
 
@@ -121,6 +122,28 @@ Prove that $\P = \NP$ if and only if $\textsc{cnf-sat} \karp \textsc{dnf-sat}$.
 
 %%%%%%
 \begin{proof}
+A DNF boolean formula has the following form:
+\[
+\phi = ( x_{1} \wedge x_{2} \wedge \ldots \wedge x_{n} ) \vee ( \ldots )
+\]
+
+I will now try to prove that $\textsc{cnf-sat} \karp \textsc{dnf-sat}$.
+
+Such a formula is satisfiable if \textit{any} of it's clauses is satiasfiable.
+A clause is satisfiable iff it does not contain both $x_{i}$ and $\overline{x_{i}}$.
+Therefore, find a satisfiable condition can be done in \P{} time.
+The algorithm just has too loop through each clause and stop when it finds the first satisfiable one.
+
+Now, I must find a function $f$ that can convert any $\textsc{CNF}$ formula into an equivalent $\textsc{DNF}$ in \P{} time. 
+Such an $f$ does not exist \cite{dnf}.
+
+Therefore, $\textsc{DNF-SAT} \notkarp \textsc{CNF-SAT}$.
+This means that $\P \neq \NP$.
+
+Similarly, proving in the other direction, if $\P = \NP$, then function $f$ would exist, and the reduction would be possible.
+But it isn't.
+So $\P \neq \NP$.
+
 \end{proof}
 
 
@@ -133,6 +156,8 @@ Show that the following problem is \NP-complete:
 
 %%%%%%%%
 \begin{proof}
+I will name the problem as $\textsc{5var-SAT}$.
+I will try to prove that $\textsc{SAT} \karp \textsc{5var-SAT}$.
 \end{proof}
 
 \begin{problem}
@@ -160,5 +185,11 @@ Suppose you have a subroutine that tells you whether the given graph has a 3-col
 %%%%%%%%%%%
 \begin{proof}
 \end{proof}
+
+\begin{thebibliography}{1}
+
+\bibitem{dnf} Miltersen P. et all {\em On converting CNF to DNF.} Electronic Colloquium on Computational Complexity, Report No. 17 (2003).
+
+\end{thebibliography}
 
 \end{document}
