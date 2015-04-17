@@ -211,6 +211,15 @@ Suppose you have a subroutine that tells you whether the given graph has a 3-col
 
 %%%%%%%%%%%
 \begin{proof}
+If a graph is 3-colorable then I start by assigning a color to a vertex.
+I will then ask the subroutine to check if the graph is still colorable with the given constraint.
+If it isn't, I will assign a new color and check again.
+After 3 checks, I will have to get a {\sc YES} answer.
+The graph is 3-colorable, therefore there must exist a valid assignment.
+I will do this for every vertex until the graph is colored.
+
+Assuming that the checking subroutine can done in constant time (it isn't but I will assume anyway to simply the explanation), then the coloring is done in linear time.
+I will have to assign, at most, $3*|V|$ colors, where $|V|$ is the number of vertices.
 \end{proof}
 
 \begin{thebibliography}{1}
