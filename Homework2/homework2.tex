@@ -40,7 +40,7 @@
 \newcommand{\ZPP}{\cc{ZPP}}
 \newcommand{\BPP}{\cc{BPP}}
 \newcommand{\RP}{\cc{RP}}
-\newcommand{\sharpP}{\cc{$\sharp$P}}
+\newcommand{\sharpP}{\cc{$\sharp$P}}  
 \newcommand{\AM}{\cc{AM}}
 \newcommand{\MA}{\cc{MA}}
 \newcommand{\IP}{\cc{IP}}
@@ -106,8 +106,35 @@ Show that $\NP \cap \coNP$ is closed under the $\oplus$ operation.
 
 %%%%
 \begin{proof}
-\end{proof}
+The fact that $\NP \cap \coNP$ is closed under the $\oplus$ operation means that:
+\[
+	\forall x, y \in \NP \cap \coNP, x \oplus y \in \NP \cap \coNP
+\]
 
+Because $A$ and $B$ are decision problems, it means they can be expressed as:
+\[
+	A=\{x \mid \exists w : M_{A}(x,w) = 1\}
+\]
+and
+\[
+	B=\{x \mid \exists w : M_{B}(x,w) = 1\}
+\]
+
+We can rewrite the definition of $A \oplus B$ as:
+\[
+	A \oplus B = \{ x \mid ( x \in A \wedge x \notin B) \vee (x \notin A \wedge x \in B) \}
+\]
+%
+This is equivalent to:
+\[
+	A \oplus B = \{ x \mid ( x \in A \wedge x \in \overline{B}) \vee (x \in \overline{A} \wedge x \in B \}
+\]
+
+If checking that $x \in A$ is in $\NP$, then checking if $x \in \overline{A}$ is in $\coNP$.
+Alternatively, if checking that $x \in A$ is in $\coNP$, then checking if $x \in \overline{A}$ is in $\NP$.
+Finding if $x \in A \oplus B$ involves checking if $x$ is or isn't in $A$ or $B$ or their complements, which means that it's in $\NP \cap \coNP$.
+
+\end{proof}
 
 \begin{problem}
 In this problem DNF refers to disjunctive normal form ({\sc or} of {\sc and} of literals) and CNF refers to conjunctive normal form ({\sc and} of {\sc or} of literals). Define the following:
