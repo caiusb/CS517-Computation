@@ -183,39 +183,23 @@ is satisfied by $x_1 = 10$; $x_2 = x_3 = x_4 = x_5 = 0$ (among many others).
 
 %%%%%%%%%%
 \begin{proof}
-For simplicity, I will transform the set of linear inequalities to the following ``canonical'' form.
-The set of inequalities will be transformed to the following form:
-\[
-	c_{1}x_{1} + c_{2}x_{2} + \ldots +c_{n}x_{n} \le C
-\]
-where $c_{1}, \ldots c_{n}$ and $C$ are integer constants.
+I will show that $\textsc{3SAT} \karp \textsc{LIS}$, where $\textsc{LIS}$ stands for {\it Linear Inequality Set}.
 
-Each set can be transformed to this canonical form in $\P$ time.
-For each unknown that is on the right hand side, it's constant becomes the negative of the original.
-If the inequality is $\ge$, as opposed to $\le$, then I can switch it by multiplying every constant with $-1$.
+To do this, I will transform a 3-{\sc CNF} formula into an {\sc LIS}.
+Each clause will become a new inequality in the set.
+In each clause, I will replace each term $k_{i}$ with a new integer variable.
+For each negated term $\overline{k+{i}}$, I will replace it with $1-k{i}$.
+Each clause will be less than or equal to 0.
+Therefore, for the clause $(x_{1} \vee x_{2} \vee \overline{x_{3}}) \wedge (x_{2} \vee \overline{x_{4}} \vee x_{5})$ I will have the following system:
+%
+\begin{align*}
+	k_{1} + k_{2} - k_{3} &\ge 1 \\
+	k_{2} - k_{4} - k_{5} &\ge 2 
+\end{align*}
 
-Using the above from, I can now express the set of inequalities as a matrix A and a vector B, defined by:
-\[
-	A = \left(%
-	\begin{array}{cccc}
-		c_{1,1} & c_{1,2} & \ldots & c_{1,n} \\
-		\ldots & \ldots & \ldots & \ldots \\
-		c_{m,1} & c_{m,2} & \ldots & c_{m,n}
-	\end{array} \right),%
-	%
-	B = \left(%
-	\begin{array}{c}
-		C_{1} \\
-		C_{2} \\
-		\ldots \\
-		C_{m}
-	\end{array}
-	\right)
-\]
-
-To prove that finding an assignment that satisfies this set of inequalities is $\NP$-complete, I will reduce it to a known $\NP$-complete problem.
-
-I will show that $\textsc{3SAT} \karp \textsc{ILP}$.
+If the above system allows a solution, then so should the 3-{\sc CNF} formula.
+This means that $\textsc{3SAT} \karp \textsc{LIS}$.
+Therefore, I conclude that {\sc LIS} is an $\NP$-complete problem.
 
 \end{proof}
 
@@ -231,7 +215,10 @@ Suppose you have a subroutine that tells you whether the given graph has a 3-col
 
 \begin{thebibliography}{1}
 
-\bibitem{dnf} Miltersen P. et all {\em On converting CNF to DNF.} Electronic Colloquium on Computational Complexity, Report No. 17 (2003).
+\bibitem{dnf} Miltersen P. et al. 2003. {\em On converting CNF to DNF.} Electronic Colloquium on Computational Complexity, Report No. 17.
+
+\bibitem{clasical} Kitaev, A. Yu. et al. 2002. {\em Classical and Quantum Computation}. American Mathematical Society, Boston, MA, USA.
+
 
 \end{thebibliography}
 
