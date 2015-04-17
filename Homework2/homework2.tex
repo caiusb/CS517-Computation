@@ -183,6 +183,40 @@ is satisfied by $x_1 = 10$; $x_2 = x_3 = x_4 = x_5 = 0$ (among many others).
 
 %%%%%%%%%%
 \begin{proof}
+For simplicity, I will transform the set of linear inequalities to the following ``canonical'' form.
+The set of inequalities will be transformed to the following form:
+\[
+	c_{1}x_{1} + c_{2}x_{2} + \ldots +c_{n}x_{n} \le C
+\]
+where $c_{1}, \ldots c_{n}$ and $C$ are integer constants.
+
+Each set can be transformed to this canonical form in $\P$ time.
+For each unknown that is on the right hand side, it's constant becomes the negative of the original.
+If the inequality is $\ge$, as opposed to $\le$, then I can switch it by multiplying every constant with $-1$.
+
+Using the above from, I can now express the set of inequalities as a matrix A and a vector B, defined by:
+\[
+	A = \left(%
+	\begin{array}{cccc}
+		c_{1,1} & c_{1,2} & \ldots & c_{1,n} \\
+		\ldots & \ldots & \ldots & \ldots \\
+		c_{m,1} & c_{m,2} & \ldots & c_{m,n}
+	\end{array} \right),%
+	%
+	B = \left(%
+	\begin{array}{c}
+		C_{1} \\
+		C_{2} \\
+		\ldots \\
+		C_{m}
+	\end{array}
+	\right)
+\]
+
+To prove that finding an assignment that satisfies this set of inequalities is $\NP$-complete, I will reduce it to a known $\NP$-complete problem.
+
+I will show that $\textsc{3SAT} \karp \textsc{ILP}$.
+
 \end{proof}
 
 \begin{problem}
