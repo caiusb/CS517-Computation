@@ -31,6 +31,7 @@
 \renewcommand{\P}{\cc{P}}
 \newcommand{\NP}{\cc{NP}}
 \newcommand{\EXP}{\cc{EXP}}
+\newcommand{\NEXP}{\cc{NEXP}}
 \newcommand{\coNP}{\cc{coNP}}
 \renewcommand{\L}{\cc{L}}
 \newcommand{\NL}{\cc{NL}}
@@ -71,14 +72,14 @@
 	\stepcounter{problem}%
 	\textbf{\theproblem.}
 	\large
-}{\\}%
+}{~\\}%
 
 \newenvironment{subproblem}%
 {%
 	\stepcounter{subproblem}%
 	\textbf{\alph{subproblem})}
 	\large
-}{\\}%
+}{~\\}%
 
 %%%%
 
@@ -94,5 +95,66 @@
 \begin{document}
 
 \maketitle
+
+\begin{problem}
+Prove that $L$ is $\NP$-complete if and only if $\overline L$ is $\coNP$-complete (both notions of completeness under Karp reductions). Conclude that the following problem is $\coNP$-complete:
+\[
+    \mbox{EQV} = \{ \langle \phi_1, \phi_2 \rangle \mid \phi_1 \mbox{ and } \phi_2 \mbox{ are logically equivalent boolean formulas} \}
+\]
+\end{problem}
+
+%%%%%%%%%
+\begin{proof}
+\end{proof}
+
+\begin{problem}
+Define the complexity class
+$
+    \cc{DNP} \overset{\text{def}}= \{ L \mid \exists L_1 \in \NP, L_2 \in \coNP : L = L_1 \cap L_2 \}
+$
+\begin{enumerate}
+    \item Show that $\NP \ne \coNP$ if and only if $\cc{DNP} \ne \NP \cap \coNP$.
+    \item Show that the following problem is $\cc{DNP}$-complete under Karp reductions:
+    \[
+        \mbox{SATUNSAT} = \{ \langle \phi_1, \phi_2 \rangle \mid
+            \phi_1 \mbox{ is satisfiable and } \phi_2 \mbox{ is not satisfiable} \}
+    \]
+
+\end{enumerate}
+\vspace{0pt}
+\end{problem}
+
+%%%%%%%%%%
+\begin{proof}
+\end{proof}
+
+\begin{problem}
+Show that $\DTIME(2^n) \ne \NTIME(2^n)$ implies  $\DTIME(n) \ne \NTIME(n)$
+
+{\em Hint:} show the contrapositive. Assuming $\DTIME(n) = \NTIME(n)$, use this fact to solve every $\NTIME(2^n)$ problem deterministically in $\DTIME(2^n)$. Take an arbitrary $L \in \NTIME(2^n)$ and define
+\[
+    L_{\text{pad}} = \{ x\#^t \mid t = 2^{|x|}-|x| \mbox{ and } x \in L \}
+\]
+where $\#$ is a new symbol not appearing in $x$. What is the computational complexity of $L_{\text{pad}}$? How does this help?
+\end{problem}
+
+%%%%%%%%%%%
+\begin{proof}
+\end{proof}
+
+\begin{problem}
+Recall that:
+\[
+    \EXP = \bigcup_{c>0} \DTIME(2^{n^c}); \qquad\qquad
+    \NEXP = \bigcup_{c>0} \NTIME(2^{n^c})
+\]
+Show that $\EXP \ne \NEXP$ implies $\P \ne \NP$.
+
+{\em Warning:} $\P = \NP$ does not necessarily mean that $\DTIME(n^c) = \NTIME(n^c)$ for every $c$.
+\end{problem}
+
+%%%%%%%%%%%
+\begin{proof}
+\end{proof}
 
 \end{document}
