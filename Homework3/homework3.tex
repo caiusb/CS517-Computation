@@ -209,9 +209,10 @@ on input $x$: \\
 }
 
 The above turing machine has a complexity of $\DTIME(2^{|x|})$.
-It takes $2^{|x|}-|x|$ steps to create the input $x_{pad}$, and it takes $2^|x|$ steps for $M_{pad}$ to decide if $x_{pad} \in \lpad$.
+It takes $2^{|x|}-|x|$ steps to create the input $x_{pad}$, and it takes $2^{|x|}$ steps for $M_{pad}$ to decide if $x_{pad} \in \lpad$.
 
-This shows that $\DTIME(2^n) = \NTIME(2^n)$.
+This shows that $\DTIME(2^n) = \NTIME(2^n)$ if $\DTIME(n) = \NTIME(n)$. 
+Negating this, I get to the desired result, that $\DTIME(n) \neq \NTIME(n)$ when $\DTIME(2^n) \neq \DTIME(2^n)$.
 \end{proof}
 
 \begin{problem}
@@ -227,6 +228,33 @@ Show that $\EXP \ne \NEXP$ implies $\P \ne \NP$.
 
 %%%%%%%%%%%
 \begin{proof}
+I will try and prove the contrapositive: $\P = \NP \Rightarrow \EXP = \NEXP$.
+
+I know that $\EXP = \bigcup_{c>0} \DTIME(2^{n^c})$.
+I assume that I have a language $L \in \NEXP(n)$
+I will construct the following language:
+\[
+	L^* = \{ x\#^{t} \mid t=2^{{|x|}^c} - |x| \mbox{ and } x \in L, c \ge 1 \}
+\]
+The size of the input of this machine is $T=2^{{|x|}^c}$.
+Therefore, $L^* \in \NP$.
+Since I assume that $\P = \NP$ I can say that $L^* \in \P$.
+I assume that I have a {\tm} $M*$ that can decide $L*$.
+I will now build a {\tm} $M$ to decide $L$.
+
+\fcodebox{
+on input $x$: \\
+\> for $2^{{|x|}^c} - |x|$ steps do: \\
+\> \> pad $x$ with $\#$, obtaining $x_{pad}$ \\
+\> run $M^*$ on $x_{pad}$ \\
+\> if $M^*$ accepts, then accept \\
+\> else reject 
+}
+
+The following \tm{} decides $L$ in $\EXP(n)$.
+Since $L$ was initially formulated to be in $\NEXP(n)$, I conclude that $\EXP(n) = \NEXP(n)$.
+Negating this, I obtain that if $\EXP \ne \NEXP$ implies that $\P \ne \NP$.
+
 \end{proof}
 
 \end{document}
