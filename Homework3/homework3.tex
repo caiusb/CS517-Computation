@@ -102,6 +102,7 @@ Prove that $L$ is $\NP$-complete if and only if $\overline L$ is $\coNP$-complet
     \mbox{EQV} = \{ \langle \phi_1, \phi_2 \rangle \mid \phi_1 \mbox{ and } \phi_2 \mbox{ are logically equivalent boolean formulas} \}
 \]
 \end{problem}
+\vspace{-20pt}
 
 %%%%%%%%%
 \begin{proof}
@@ -171,8 +172,8 @@ Similarly, the UNSAT problem: $\mbox{UNSAT} = \{ \phi \mid \phi \mbox{ is not sa
 This shows that $\SATUNSAT \in \DNP$.
 
 Now, I need to prove that $\SATUNSAT$ is $\DNP$-hard.
-Every problem in $\DNP$ can, by definition, be expressed as combination of a $\NP$-problem and $\coNP$-problem.
-Since $\SAT$ is $\NP$-hard and UNSAT is $\coNP$-hard (by being the complement of $\SAT$, see Problem 1), that means that every problem in $\DNP$ can be karp-reduced to $\SATUNSAT$.
+Every problem in $\DNP$ can, by definition, be expressed as combination of an $\NP$ problem and a $\coNP$ problem.
+Since $\SAT$ is $\NP$-hard and UNSAT is $\coNP$-hard (by being the complement of $\SAT$, see Problem 1), that means that every problem in $\DNP$ can be Karp-reduced to $\SATUNSAT$.
 This proves that $\SATUNSAT$ is $\DNP$-hard.
 
 Therefore, I conclude that $\SATUNSAT$ is $\DNP$-complete.
@@ -237,6 +238,7 @@ I will construct the following language:
 	L^* = \{ x\#^{t} \mid t=2^{{|x|}^c} - |x| \mbox{ and } x \in L, c \ge 1 \}
 \]
 The size of the input of this machine is $T=2^{{|x|}^c}$.
+It's complexity is in $\NTIME(T)$.
 Therefore, $L^* \in \NP$.
 Since I assume that $\P = \NP$ I can say that $L^* \in \P$.
 I assume that I have a {\tm} $M*$ that can decide $L*$.
