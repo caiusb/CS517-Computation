@@ -190,6 +190,28 @@ where $\#$ is a new symbol not appearing in $x$. What is the computational compl
 
 %%%%%%%%%%%
 \begin{proof}
+\newcommand{\lpad}{L_{\text{pad}}}
+I will use the hint and try to prove that $\DTIME(2^n) = \NTIME(2^n)$ when $\DTIME(n) = \NTIME(n)$.
+
+The size of the input for $\lpad$ is $|T| = 2^{|x|}$.
+Therefore I can express the computation complexity of $\lpad$ as $\NTIME(T)$.
+Using the assumption that $\DTIME(n) = \NTIME(n)$, then the complexity of $\lpad$ is also $\DTIME(T)$.
+
+I will now create a {\tm} that can decide $L$ in $\DTIME(2^n)$, assuming I have a {\tm} $M_{pad}$ that can decide $\lpad$ in time $\DTIME(2^n)$.
+
+\fcodebox{
+on input $x$: \\
+\> for $2^{|x|}-|x|$ steps: \\
+\> \> append $\#$ to $x$, creating $x_{pad}$ \\
+\> run $M_{pad}$ with input $x_{pad}$ \\
+\> if $M_{pad}$ accepts, then accept \\
+\> else reject
+}
+
+The above turing machine has a complexity of $\DTIME(2^{|x|})$.
+It takes $2^{|x|}-|x|$ steps to create the input $x_{pad}$, and it takes $2^|x|$ steps for $M_{pad}$ to decide if $x_{pad} \in \lpad$.
+
+This shows that $\DTIME(2^n) = \NTIME(2^n)$.
 \end{proof}
 
 \begin{problem}
