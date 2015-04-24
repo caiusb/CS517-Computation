@@ -72,14 +72,14 @@
 	\stepcounter{problem}%
 	\textbf{\theproblem.}
 	\large
-}{~\\}%
+}{\normalsize~\\}%
 
 \newenvironment{subproblem}%
 {%
 	\stepcounter{subproblem}%
 	\textbf{\alph{subproblem})}
 	\large
-}{~\\}%
+}{\normalsize~\\}%
 
 %%%%
 
@@ -105,6 +105,26 @@ Prove that $L$ is $\NP$-complete if and only if $\overline L$ is $\coNP$-complet
 
 %%%%%%%%%
 \begin{proof}
+
+We know by definition that if $L$ is in $\NP$ then $\overline L$ is in $\coNP$.
+If $L$ is $\NP$-complete, that means that $\forall A \in \NP, A \karp L$.
+This can be further expanded as $\forall A \in \NP, \exists f : x \in A \iff f(x) \in L$.
+This can be rewritten as $\forall A \in \NP, \exists f : x \notin A \iff f(x) \notin L$.
+Which is equivalent to $\forall A \in \NP, \exists f : x \in {\overline A} \iff f(x) \in {\overline L}$.
+However, $\overline A$ is a $\coNP$ problem.
+This means that $\forall {\overline A} \in \coNP, \exists f:x \in {\overline A} \iff f(x) \in {\overline L}$.
+This can be written ${\overline A} \karp {\overline L}$, $\forall {\overline A} \in \coNP$.
+Which means that $\overline L$ is $\coNP$-complete.
+
+Using this, I will prove that $EQV$ is $\coNP$-complete by proving that $\overline EQV$ is $\NP$-complete.
+I will define the complement of $EQV$ as:
+\[
+	\overline{EQV} = \{ \langle \phi_1, \phi_2 \rangle \mid \exists x : \phi_1 (x) \neq \phi_2 (x) \}
+\]
+I can rewrite $\phi_1 (x) \neq \phi_2 (x)$ as $\phi = \phi_1 (x) \wedge \overline{\phi_2 (x) }=true$.
+This transforms $\overline{EQV}$ into a $\SAT$ problem, which I know is $\NP$-complete.
+Therefore $\SAT \karp \overline{EQV}$, which means that $\overline{EQV}$ is $\NP$-complete.
+Using the proof from the beginning of the exercise, I conclude that $EQV$ is $\coNP$-complete.
 \end{proof}
 
 \begin{problem}
