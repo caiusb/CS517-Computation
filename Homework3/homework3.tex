@@ -127,24 +127,55 @@ Therefore $\SAT \karp \overline{EQV}$, which means that $\overline{EQV}$ is $\NP
 Using the proof from the beginning of the exercise, I conclude that $EQV$ is $\coNP$-complete.
 \end{proof}
 
+\newcommand{\DNP}{\cc{DNP}}
 \begin{problem}
 Define the complexity class
 $
     \cc{DNP} \overset{\text{def}}= \{ L \mid \exists L_1 \in \NP, L_2 \in \coNP : L = L_1 \cap L_2 \}
 $
-\begin{enumerate}
-    \item Show that $\NP \ne \coNP$ if and only if $\cc{DNP} \ne \NP \cap \coNP$.
-    \item Show that the following problem is $\cc{DNP}$-complete under Karp reductions:
+\end{problem}
+
+\begin{subproblem}
+Show that $\NP \ne \coNP \iff \cc{DNP} \ne \NP \cap \coNP$.
+\end{subproblem}
+
+\begin{proof}
+I will begin by showing the left side ($\Leftarrow$) of the statement.
+This means proving that $\DNP \ne \NP \cap \coNP \Rightarrow \NP \ne \coNP$.
+I will prove the complement of that statement which is $\NP = \coNP \Rightarrow \DNP = \NP \cap \coNP$.
+If $\NP = \coNP$, this means that both $L_1$ and $L_2$ are in the same set. Which means that $L = L_1 = L_2$.
+Therefore $\DNP = \NP = \coNP = \NP \cap \coNP$.
+
+Next, I will prove the right side ($\Rightarrow$) of the statement: $\NP \ne \coNP \Rightarrow \DNP \ne \NP \cap \coNP$.
+If $\NP \ne \coNP$ this means that $S = \NP \setminus \coNP \ne \emptyset$. 
+I choose $L_1 \in S$.
+This will allow me to construct $L^* \in \DNP$ and $L^* \notin \NP \cap \coNP$.
+Therefore $\DNP \ne \NP \cap \coNP$.
+\end{proof}
+
+\begin{subproblem}
+Show that the following problem is $\cc{DNP}$-complete under Karp reductions:
     \[
         \mbox{SATUNSAT} = \{ \langle \phi_1, \phi_2 \rangle \mid
             \phi_1 \mbox{ is satisfiable and } \phi_2 \mbox{ is not satisfiable} \}
     \]
-
-\end{enumerate}
-\end{problem}
+\end{subproblem}
 
 %%%%%%%%%%
 \begin{proof}
+\newcommand{\SATUNSAT}{\mbox{SATUNSAT}}
+I need to prove that $\forall A \in \DNP, A \karp \SATUNSAT$.
+
+The $\SAT$ problem $\SAT = \{ \phi \mid \phi \mbox{ is satisfiable }\}$ is $\NP$-complete.
+Similarly, the UNSAT problem $\mbox{UNSAT} = \{ \phi \mid \phi \mbox{ is not satisfiable }\}$ is $\coNP$-complete.
+This shows that $\SATUNSAT \in \DNP$.
+
+Now, I need to prove that $\SATUNSAT$ is $\DNP$-hard.
+Every problem in $\DNP$ can, by definition, be expressed as combination of a $\NP$-problem and $\coNP$-problem.
+Since $\SAT$ is $\NP$-hard and UNSAT is $\coNP$-hard (by being the complement of $\SAT$, see Problem 1), that means that every problem in $\DNP$ can be karp-reduced to $\SATUNSAT$.
+This proves that $\SATUNSAT$ is $\DNP$-hard.
+
+Therefore, I conclude that $\SATUNSAT$ is $\DNP$-complete.
 \end{proof}
 
 \begin{problem}
