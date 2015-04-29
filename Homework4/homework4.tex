@@ -1,0 +1,131 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[paper=letterpaper,margin=1in]{geometry}
+
+
+%% minimal example of some latex stuff
+
+\usepackage{xspace,graphicx,amsmath,amsthm,amssymb,xcolor}
+
+
+\newtheorem{theorem}{Theorem}
+
+%% code boxes
+
+\usepackage{varwidth}
+\newcommand{\fcodebox}[1]{%
+    \framebox{\codebox{#1}}%
+}
+\newcommand{\codebox}[1]{%
+        \begin{varwidth}{\linewidth}%
+        \begin{tabbing}%
+            ~~~\=\quad\=\quad\=\quad\=\quad\=\quad\=\kill
+            #1
+        \end{tabbing}%
+        \end{varwidth}%
+}
+
+%% complexity classes
+
+\newcommand{\cc}[1]{\ensuremath{\textsf{#1}}\xspace}
+\renewcommand{\P}{\cc{P}}
+\newcommand{\NP}{\cc{NP}}
+\newcommand{\EXP}{\cc{EXP}}
+\newcommand{\coNP}{\cc{coNP}}
+\renewcommand{\L}{\cc{L}}
+\newcommand{\NL}{\cc{NL}}
+\newcommand{\PH}{\cc{PH}}
+\newcommand{\PSPACE}{\cc{PSPACE}}
+\newcommand{\Ppoly}{\cc{P/poly}}
+\newcommand{\ZPP}{\cc{ZPP}}
+\newcommand{\BPP}{\cc{BPP}}
+\newcommand{\RP}{\cc{RP}}
+\newcommand{\sharpP}{\cc{$\sharp$P}}
+\newcommand{\AM}{\cc{AM}}
+\newcommand{\MA}{\cc{MA}}
+\newcommand{\IP}{\cc{IP}}
+
+
+\newcommand{\DTIME}{\cc{DTIME}}
+\newcommand{\NTIME}{\cc{NTIME}}
+\newcommand{\DSPACE}{\cc{DSPACE}}
+\newcommand{\NSPACE}{\cc{NSPACE}}
+\newcommand{\SIZE}{\cc{SIZE}}
+
+
+\newcommand{\karp}{\le_{\textsf{P}}}
+
+%% decision problems
+
+\newcommand{\prob}[1]{\ensuremath{\textsc{#1}}\xspace}
+\newcommand{\SAT}{\prob{sat}}
+\newcommand{\ThreeSAT}{\prob{3sat}}
+
+%% homework templates
+
+\newcounter{problem}
+\newcounter{subproblem}[problem]
+
+\newenvironment{problem}%
+{%
+	\stepcounter{problem}%
+	\textbf{\theproblem.}
+	\large
+}{\\}%
+
+\newenvironment{subproblem}%
+{%
+	\stepcounter{subproblem}%
+	\textbf{\alph{subproblem})}
+	\large
+}{\\}%
+
+%%%%
+
+\newcommand{\tm}{Turing Machine}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+
+%%%%
+
+\title{Homework4}
+\author{Caius Brindescu}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+	Extend Ladner's theorem:
+\end{problem}
+
+\begin{subproblem}
+Prove that if $\P \ne \NP$ then there exist languages $L_1, L_2 \in \NP$ such that $L_1 \not\karp L_2$ and $L_2 \not\karp L_1$.
+
+{\em Hint:} Adapt the proof of Ladner's theorem and arrange so that $L_1 \cap L_2 = \emptyset$ and $L_1 \cup L_2 = \ThreeSAT$. In other words, long segments of \ThreeSAT are placed into  $L_1$ and $L_2$ in an alternating fashion.
+\end{subproblem}
+
+%%%%%%%%
+\begin{proof}
+	
+\end{proof}
+
+\begin{subproblem}
+Show that if $\P \ne \NP$ then there exist infinitely many languages $L_1, L_2, \ldots \in \NP$ such that $L_i \not\karp L_j$ for all $i \ne j$.
+\end{subproblem}
+
+%%%%%%%%%%%%%%
+\begin{proof}
+	
+\end{proof}
+
+\begin{problem}
+Prove that if $\NP \ne \coNP$ then there is a language $L^*  \in \NP \setminus \coNP$ that is not \NP-complete. Why does our proof of Ladner's theorem not imply this?
+\end{problem}
+
+%%%%%%%%%%%%
+\begin{proof}
+	
+\end{proof}
+
+\end{document}
