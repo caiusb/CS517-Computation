@@ -161,12 +161,12 @@ Since $\ThreeSAT$ is $\NP$-complete, then $A \karp \ThreeSAT$, which means that 
 \fcodebox{
 \underline{$M_1^*$, on input x:} \\
 \> {\red construct $x' = f(x)$} \\
-\> do (deterministically) for a total of \textcolor{red}{$|x'|$} steps: \\
+\> do (deterministically) for a total of {\red $|x'|$} steps: \\
 \> \> for every deterministic $\P$ time \tm{} $M$ do: \\
 \> \> $on := false$ \\
 \> \> iterate through all strings $y$ until $[y \in \ThreeSAT] \not \Leftrightarrow [M(y) \in L_1^*(M_1^*)]$ \\
 \> \> $on := true$ \\
-1: \> if $on$ then run $\NP$ algorithm for \textcolor{red}{$A$ on input x} \\
+1: \> if $on$ then run $\NP$ algorithm for {\red $A$ on input x} \\
 \> else return $false$
 }
 
