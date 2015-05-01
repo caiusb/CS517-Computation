@@ -153,7 +153,7 @@ Finally, if the $on$ switch gets stuck on $true$, then $L_2$ will always be $fal
 Before that it will be a {\em finite} subset of $\ThreeSAT$.
 Therefore, $L_2$ will be in $\P$. 
 Since $L_1 \in \NP$ it means that $L_1 \not \karp L_2$, because $\P \neq \NP$.
-Also, $L_2 \not \karp L_1$, because $L_2$ will always contract with $L_1$, for the inputs $x$ when $L_1$ is solving $\ThreeSAT$. 
+Also, $L_2 \not \karp L_1$, because $L_2$ will always contradict with $L_1$, for the inputs $x$ when $L_1$ is solving $\ThreeSAT$. 
 
 Therefore $L_1 \not \karp L_2$ and $L_2 \not \karp L_1$.
 \end{proof}
@@ -168,16 +168,17 @@ To prove this, I will use the languages defined at point a).
 I will show that I can generate an infinite number of languages $L_1^i$ such that $L_1^i \karp L_1$ and infinite number of languages $L_2^i$ such that $L_2^i \karp L_2$.
 Since $L_1 \karp L_2 \Rightarrow L_1^i \not \karp L_2^i, \forall i$.
 
-Let $A$ be a problem in $\NP$.
+Let $A$ be a problem in $\NP$ s.t. $A \karp \ThreeSAT$.
 I will use the \tm{} $M_1$ defined at point a) as a base for defining the \tm{} $M_1^*$.
 Since $\ThreeSAT$ is $\NP$-complete, then $A \karp \ThreeSAT$, which means that $\exists f : x \in A \Leftrightarrow f(x) \in \ThreeSAT$.
 
 \fcodebox{
 \underline{$M_1^*$, on input x:} \\
-\> do (deterministically) for a total of $|x|$ steps: \\
+\> {\red compute $x'=f(x)$} \\
+\> do (deterministically) for a total of {\red $|x'|$ steps}: \\
 \> \> for every deterministic $\P$ time \tm{} $M$ do: \\
 \> \> \> $on := false$ \\
-\> \> \> iterate through all strings $y$ until $[y \in {\red A}] \not \Leftrightarrow [M(y) \in L_1^*(M_1^*)]$ \\
+\> \> \> iterate through all strings $y$ until $[y \in \ThreeSAT] \not \Leftrightarrow [M(y) \in L_1^*(M_1^*)]$ \\
 \> \> \> $on := true$ \\
 \> \> \> iterate through all strings $z$ until finding one with $[M \mbox{ accepts } z] \not \Leftrightarrow [z \in L_2(M_2)]$ \\
 1: \> if $on$ then run $\NP$ algorithm for {\red $A$ on input x} \\
@@ -185,48 +186,58 @@ Since $\ThreeSAT$ is $\NP$-complete, then $A \karp \ThreeSAT$, which means that 
 }
 
 Since this is adapted from Ladner's proof, I know that this will give me a language that is in $\NP$.
-I have replaced the problem $\ThreeSAT$ with any problem $A \in \NP$.
+In the final if condition, I have replaced the problem $\ThreeSAT$ with any problem $A \in \NP$.
 This shows that $L_1^* \not \karp A$.
 
 I can build an infinity of these machines, by substituting $A$ for any problem in $\NP$.
-I need to parameterize the \tm{} $M_!^*$ with a \tm{} for solving $A$.
+I need to parameterize the \tm{} $M_1^*$ with a \tm{} for solving $A$, and a \tm{} for computing the Karp reduction $f$.
 This allows me to build an infinity of languages, $L_1^i$.
 This shows that: $L_1^i \not \karp A, \forall A \in \NP$.
 
-Analogously, I can build a machine $M_2^*$, such that it accepts $L_2^*$.
+Analogously, I can build a machine $M'_2$, such that it accepts $L'_2$.
 Do define it start from the \tm{} $M_2$ defined a point a), and I modify in the same manner as I did with $M_1$.
-This will give me a \tm{} $M_2^*$:
+This will give me a \tm{} $M'_2$:
 
 \fcodebox{
-\underline{$M_2^*$, on input x:} \\
-\> do (deterministically) for a total of $|x|$ steps: \\
+\underline{$M'_2$, on input x:} \\
+\> {\red compute $x' = f(x)$} \\
+\> do (deterministically) for a total of {\red $|x'|$ steps}: \\
 \> \> for every deterministic $\P$ time \tm{} $M$ do: \\
 \> \> \> $on := false$ \\
-\> \> \> iterate through all strings $y$ until $[y \in {\red A}] \not \Leftrightarrow [M(y) \in L_2^*(M_2^*)]$ \\
+\> \> \> iterate through all strings $y$ until $[y \in \ThreeSAT] \not \Leftrightarrow [M(y) \in L'_2(M_2)]$ \\
 \> \> \> $on := true$ \\
-\> \> \> iterate through all strings $z$ until finding one with $[M \mbox{ accepts } z] \not \Leftrightarrow [z \in L_2(M_2)]$ \\
-1: \> if {\red $\neg on$} then run $\NP$ algorithm for {\red $A$ on input x} \\
+\> \> \> iterate through all strings $z$ until finding one with $[M \mbox{ accepts } z] \not \Leftrightarrow [z \in L'_2(M'_2)]$ \\
+\> if {\red $\neg on$} then run $\NP$ algorithm for {\red $A$ on input x} \\
 \> else return $false$
 }
 
-Analogously to the proof in point a), and \tm{} $M_1^*$, the language $L_2^*$, decided by $M_2^*$ has the property that $L_2^* \not \karp A$.
-Again, by substituting $A$ with any problem in $\NP$, I can generate an infinity of languages that have the property $L_2^* \not \karp A, \forall A \in \NP$.
+Analogously to the proof in point a), and \tm{} $M'_1$, the language $L'_2$, decided by $M'_2$ has the property that $L'_2 \not \karp A$.
+Again, by substituting $A$ with any problem in $\NP$, I can generate an infinity of languages that have the property $L'_2 \not \karp A, \forall A \in \NP$.
 
-Since the \tm's $M_1^*$ and $M_2^*$ are derived from $A$, I know from their construction that the languages they accept, $L_1^*$ and $L_2^*$ have the following properties: 
-\begin{enumerate}
-	\item $L_1^* \cap L_2^* = \emptyset$;
-	\item $L_1^* \cup L_2^* = A, \forall A \in \NP$
-\end{enumerate}
+Since the \tm's $M'_1$ and $M'_2$ are derived from $A$, I know from their construction that the languages they accept, $L'_1$ and $L'_2$ have the property that $L'_1 \not \karp L'_2$ and $L'_2 \not \karp L'_1$.
+I can generate an number of pairs of languages that cannot be Karp reduced to one another.
 
-This show that $L_1^* \not \karp L_2^*$.
-Since I can generate an infinity of those languages I have shown that
-\[
-	L_1^i \not \karp L_2^j, \forall i \neq j
-\]
+I will define $L_1^*$ as the set of languages that can be generated by an $L'_1$ machine by using any $A \in \NP$.
+Similarly, $L_2^*$ is the set of all languages generated by an $L'_2$ machine for any $A \in \NP$.
+Let $L_1^i \in L_1^*$ and $L_2^j \in L_2^*$.
+I have to show that $L_1^i \not \karp L_2^j, \forall i, j$.
 
+I will show that $L_1^i \karp L_1, \forall i$.
+If $x \in L_1^i$ and for $x$ the $on$ switch is $true$.
+This means that for the equivalent $\ThreeSAT$, problem, the $on$ switch is also $true$.
+This is true because of the how how I $M'_1$.
+Therefore, $M'_1(x) = \ThreeSAT(f(x))$.
+On the other side, if the switch is $false$, then in both cases the \tm s will return $false$.
+Therefore, $L_1^i \karp L_1, \forall i$.
+
+Similarly I will show that $L_2^i \karp L_2, \forall i$.
+The switch will toggle for the same $x in L_2^i$ and $f(x) in \ThreeSAT$.
+Otherwise, both \tm s will return 0.
+This shows that $L_2^i \karp L_2, \forall i$.
+
+Since $L_1 \not \karp L-2$ (Problem 1b), I have shown that there exist an infinity of languages $L_1, L_2, \ldots \in \NP : L_i \not \karp L_j, \forall i \neq j$.
 \end{proof}
 
-\newpage
 \begin{problem}
 Prove that if $\NP \ne \coNP$ then there is a language $L^*  \in \NP \setminus \coNP$ that is not \NP-complete. Why does our proof of Ladner's theorem not imply this?
 \end{problem}
@@ -246,9 +257,10 @@ The language $\overline{L^*}$ can be defined by the following \tm{} $\overline{M
 \underline{$\overline {M^*}$, on input x:} \\
 \> do (deterministically) for a total of $|x|$ steps: \\
 \> \> for every deterministic $\P$ time \tm{} $M$ do: \\
-\> \> $on := false$ \\
-\> \> iterate through all strings $y$ until $[y \in \ThreeSAT] \not \Leftrightarrow [M(y) \in L_1(M_1)]$ \\
-\> \> $on := true$ \\
+\> \> \> $on := false$ \\
+\> \> \> iterate through all strings $y$ until $[y \in \ThreeSAT] \not \Leftrightarrow [M(y) \in L_1(M_1)]$ \\
+\> \> \> $on := true$ \\
+\> \> \> iterate through all strings $z$ until finding one with $[M \mbox{ accepts } z] \not \Leftrightarrow [z \in \overline{L^*}(\overline{M_*})]$ \\
 \> if $on$ then {\red run $co\NP$ algorithm for $\overline{\ThreeSAT}$} \\
 \> else {\red return $true$}
 }
