@@ -130,7 +130,7 @@ I will create two Languages $L_1$, and $L_2$, that can decided by the nondetermi
 \> \> $on := false$ \\
 \> \> iterate through all strings $y$ until $[y \in \ThreeSAT] \not \Leftrightarrow [M(y) \in L_2(M_2)]$ \\
 \> \> $on := true$ \\
-2: \> if \textcolor{red}{$\neg on$} then run $\NP$ algorithm for $\ThreeSAT$ \\
+2: \> if {\red $\neg on$} then run $\NP$ algorithm for $\ThreeSAT$ \\
 \> else return $false$
 }
 
@@ -160,40 +160,57 @@ Since $\ThreeSAT$ is $\NP$-complete, then $A \karp \ThreeSAT$, which means that 
 
 \fcodebox{
 \underline{$M_1^*$, on input x:} \\
-\> {\red construct $x' = f(x)$} \\
-\> do (deterministically) for a total of {\red $|x'|$} steps: \\
+\> do (deterministically) for a total of $|x|$ steps: \\
 \> \> for every deterministic $\P$ time \tm{} $M$ do: \\
 \> \> $on := false$ \\
-\> \> iterate through all strings $y$ until $[y \in \ThreeSAT] \not \Leftrightarrow [M(y) \in L_1^*(M_1^*)]$ \\
+\> \> iterate through all strings $y$ until $[y \in {\red A}] \not \Leftrightarrow [M(y) \in L_1^*(M_1^*)]$ \\
 \> \> $on := true$ \\
 1: \> if $on$ then run $\NP$ algorithm for {\red $A$ on input x} \\
 \> else return $false$
 }
 
-The difference from $M_1$ is highlighted in red.
-I can calculate $f(x)$ in polynomial time, because of the definition of the Karp reduction.
-Instead of running the algorithm for $\ThreeSAT$, I am now running the algorithm for $A$.
-Therefore, I will get a language that is always rejects some outputs and for the others it accepts if $A$ accepts.
 Since this is adapted from Ladner's proof, I know that this will give me a language that is in $\NP$.
-The same arguments will apply, since I am only changing the action performed in the last condition.
-
-I now have to show that $L_1^i \karp L_1, \forall i$. 
-This follows from the fact that $A \karp \ThreeSAT$.
-For both machines ($L_1$ and $L_1^*$), the switch $on$ will toggle for the same $x$.
-Therefore $L_1^*$ will accept iff $L_1$ accepts (again, because $A \karp \ThreeSAT$).
+I have replaced the problem $\ThreeSAT$ with any problem $A \in \NP$.
+This shows that $L_1^* \not \karp A$.
 
 I can build an infinity of these machines, by substituting $A$ for any problem in $\NP$.
+I need to parameterize the \tm{} $M_!^*$ with a \tm{} for solving $A$.
 This allows me to build an infinity of languages, $L_1^i$.
-This shows
-\beq
-	L_1^i \karp L_1, \forall i.
-	\label{l1star}
-\eeq
+This shows that: $L_1^i \not \karp A, \forall A \in \NP$.
 
-Analogously, I can build a machine $M_2^*$, such that it accepts $L_2^*$ and $L_2^* \karp L_2$.
+Analogously, I can build a machine $M_2^*$, such that it accepts $L_2^*$.
+Do define it start from the \tm{} $M_2$ defined a point a), and I modify in the same manner as I did with $M_1$.
+This will give me a \tm{} $M_2^*$:
+
+\fcodebox{
+\underline{$M_2^*$, on input x:} \\
+\> do (deterministically) for a total of $|x|$ steps: \\
+\> \> for every deterministic $\P$ time \tm{} $M$ do: \\
+\> \> $on := false$ \\
+\> \> iterate through all strings $y$ until $[y \in {\red A}] \not \Leftrightarrow [M(y) \in L_2^*(M_2^*)]$ \\
+\> \> $on := true$ \\
+1: \> if {\red $\neg on$} then run $\NP$ algorithm for {\red $A$ on input x} \\
+\> else return $false$
+}
+
+Analogously to the proof in point a), and \tm{} $M_1^*$, the language $L_2^*$, decided by $M_2^*$ has the property that $L_2^* \not \karp A$.
+Again, by substituting $A$ with any problem in $\NP$, I can generate an infinity of languages that have the property $L_2^* \not \karp A, \forall A \in \NP$.
+
+Since the \tm's $M_1^*$ and $M_2^*$ are derived from $A$, I know from their construction that the languages they accept, $L_1^*$ and $L_2^*$ have the following properties: 
+\begin{enumerate}
+	\item $L_1^* \cap L_2^* = \emptyset$;
+	\item $L_1^* \cup L_2^* = A, \forall A \in \NP$
+\end{enumerate}
+
+This show that $L_1^* \not \karp L_2^*$.
+Since I can generate an infinity of those languages I have shown that
+\[
+	L_1^i \not \karp L_2^j, \forall i \neq j
+\]
 
 \end{proof}
 
+\newpage
 \begin{problem}
 Prove that if $\NP \ne \coNP$ then there is a language $L^*  \in \NP \setminus \coNP$ that is not \NP-complete. Why does our proof of Ladner's theorem not imply this?
 \end{problem}
