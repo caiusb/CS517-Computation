@@ -195,6 +195,30 @@ Prove that if $\NP \ne \coNP$ then there is a language $L^*  \in \NP \setminus \
 %%%%%%%%%%%%
 \begin{proof}
 	
+Ladner's theorem only specifies that there are $\NP$ languages that are not $\NP$-complete.	
+It does not specify if if those languages are also in $\coNP$ or not.
+
+I will build a language $L^* \in \NP \setminus \coNP$ that is not $\NP$-complete.
+The fact that $L^* \in \NP \setminus \coNP \Leftrightarrow L^* \neq \overline{L^*}$.
+
+I will define $L^*$ as being the language $L_1$ from Problem~1. 
+The language $\overline{L^*}$ can be defined by the following \tm{} $\overline{M^*}$:
+
+\fcodebox{
+\underline{$\overline {M^*}$, on input x:} \\
+\> do (deterministically) for a total of $|x|$ steps: \\
+\> \> for every deterministic $\P$ time \tm{} $M$ do: \\
+\> \> $on := false$ \\
+\> \> iterate through all strings $y$ until $[y \in \ThreeSAT] \not \Leftrightarrow [M(y) \in L_1(M_1)]$ \\
+\> \> $on := true$ \\
+\> if $on$ then run $co\NP$ algorithm for $\overline{\ThreeSAT}$ \\
+\> else return $true$
+}
+
+The language $\overline{L^*}$ defined by this machine is a complement of $L^*$.
+By construction, $L^* \in \NP$ and is not $\NP$-complete.
+Also $\overline{L^*} \neq L^* \Leftrightarrow L^* \in \NP \cap \coNP$.
+
 \end{proof}
 
 \end{document}
