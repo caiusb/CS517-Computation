@@ -88,6 +88,8 @@
 
 %%%%
 
+\newcommand{\red}{\color{red}}
+
 \title{Homework 4}
 \author{Caius Brindescu}
 
@@ -154,19 +156,22 @@ Since $L_1 \karp L_2 \Rightarrow L_1^i \not \karp L_2^i, \forall i$.
 
 Let $A$ be a problem in $\NP$.
 I will use the \tm{} $M_1$ defined at point a) as a base for defining the \tm{} $M_1^*$.
+Since $\ThreeSAT$ is $\NP$-complete, then $A \karp \ThreeSAT$, which means that $\exists f : x \in A \Leftrightarrow f(x) \in \ThreeSAT$.
 
 \fcodebox{
 \underline{$M_1^*$, on input x:} \\
-\> do (deterministically) for a total of $|x|$ steps: \\
+\> {\red construct $x' = f(x)$} \\
+\> do (deterministically) for a total of \textcolor{red}{$|x'|$} steps: \\
 \> \> for every deterministic $\P$ time \tm{} $M$ do: \\
 \> \> $on := false$ \\
 \> \> iterate through all strings $y$ until $[y \in \ThreeSAT] \not \Leftrightarrow [M(y) \in L_1^*(M_1^*)]$ \\
 \> \> $on := true$ \\
-1: \> if $on$ then run $\NP$ algorithm for $\textcolor{red}{A}$ \\
+1: \> if $on$ then run $\NP$ algorithm for \textcolor{red}{$A$ on input x} \\
 \> else return $false$
 }
 
-The difference is highlighted in red.
+The difference from $M_1$ is highlighted in red.
+I can calculate $f(x)$ in polynomial time, because of the definition of the Karp reduction.
 Instead of running the algorithm for $\ThreeSAT$, I am now running the algorithm for $A$.
 Therefore, I will get a language that is always rejects some outputs and for the others it accepts if $A$ accepts.
 Since this is adapted from Ladner's proof, I know that this will give me a language that is in $\NP$.
