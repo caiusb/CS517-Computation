@@ -107,7 +107,6 @@ Prove that if $\P \ne \NP$ then there exist languages $L_1, L_2 \in \NP$ such th
 
 %%%%%%%%
 \begin{proof}
-	
 I will start by adapting the proof Ladner's theorem. 
 I will create two Languages $L_1$, and $L_2$, that can decided by the nondeterminisic \tm{} $M_{1}$, and $M_2$, respectively:
 
@@ -127,17 +126,19 @@ I will create two Languages $L_1$, and $L_2$, that can decided by the nondetermi
 \> do (deterministically) for a total of $|x|$ steps: \\
 \> \> for every deterministic $\P$ time \tm{} $M$ do: \\
 \> \> $on := false$ \\
-\> \> iterate through all strings $y$ until $[y \in \ThreeSAT] \not \Leftrightarrow [M(y) \in L_1(M_1)]$ \\
+\> \> iterate through all strings $y$ until $[y \in \ThreeSAT] \not \Leftrightarrow [M(y) \in L_2(M_2)]$ \\
 \> \> $on := true$ \\
-2: \> if $\neg on$ then run $\NP$ algorithm for $\ThreeSAT$ \\
+2: \> if \textcolor{red}{$\neg on$} then run $\NP$ algorithm for $\ThreeSAT$ \\
 \> else return $false$
 }
 
-The difference between lines (1) and (2) is that the $on$ condition is negated.
+The difference between lines (1) and (2) is that the $on$ condition is negated (highlighted in red).
 This means that $L_1$ and $L_2$ will return complementary languages.
 Therefore $L_1 \cap L_2 = \emptyset$ an $L_1 \cup L_2 = \ThreeSAT$.
 
 Since these machines are derived from the proof for Ladner's theorem, I know that the $on$ switch will toggle infinitely. 
+So, $L_1 \in \NP$ and $L_2 \in \NP$.
+
 Therefore $L_1 \not \karp L_2$.
 \end{proof}
 
@@ -147,7 +148,7 @@ Show that if $\P \ne \NP$ then there exist infinitely many languages $L_1, L_2, 
 
 %%%%%%%%%%%%%%
 \begin{proof}
-	
+To prove this, I will use the languages defined at point a).
 I will show that I can generate an infinite number of languages $L_1^i$ such that $L_1^i \karp L_1$ and infinite number of languages $L_2^i$ such that $L_2^i \karp L_2$.
 Since $L_1 \karp L_2 \Rightarrow L_1^i \not \karp L_2^i, \forall i$.
 
@@ -194,7 +195,6 @@ Prove that if $\NP \ne \coNP$ then there is a language $L^*  \in \NP \setminus \
 
 %%%%%%%%%%%%
 \begin{proof}
-	
 Ladner's theorem only specifies that there are $\NP$ languages that are not $\NP$-complete.	
 It does not specify if if those languages are also in $\coNP$ or not.
 
