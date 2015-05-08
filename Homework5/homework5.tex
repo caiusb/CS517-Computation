@@ -135,17 +135,33 @@ This would keep $M' \in \Delta$.
 This means that $\P^\Delta \subseteq \Delta$.
 
 Therefore, $\P = \P^\Delta$.
-
 \end{proof}
 
 \begin{problem}
-Prove that $\NP^{ \Sigma_k \cap \Pi_k } = \Sigma_k$ for all $k$
+Prove that $\NP^{ \Sigma_k \cap \Pi_k } = \Sigma_k$ for all $k$.
 \end{problem}
 
 %%%%%%%%%%
 
 \begin{proof}
+I know that $\Sigma_k \cap \Pi_k \supseteq \Sigma_{k-1}$ and that $\NP^{\Sigma_{k-1}} = \Sigma_{k}$. 
+Therefore, $\NP^{\Sigma_k \cap \Pi_k} \supseteq \Sigma_k$.
+I now have to prove that $\NP^{\Sigma_k \cap \Pi_k} \subseteq \Sigma_k$.
 
+Let $M$ be a $\NP$ \tm{} using some $L' \in \Sigma_k \cap \Pi_k$ oracle, implemented by a machine $M'$.
+Similar to the proof in class, $M$ will make various queries to the oracle, along a computation thread.
+Without loss of generality, I will assume that $M$ makes only one query per computation thread.
+$M^{L'} \mbox{ accepts } x \Leftrightarrow \exists \mbox{ nondet choices } y : (y,q,a) \mbox{ is consistent with } M \mbox{ on input } x$ and accepting and the correct answer to $q \in L'$ is $a$.
+
+If the oracle's answer is $a=1$, then $q \in L' \Leftrightarrow q \in \Sigma_k \cap \Pi_k \Leftrightarrow \exists w_1 \forall w_2 \ldots \square w_k : M'(q,w_1,w_2,\ldots) = 1 \Leftrightarrow \forall w_1 \exists w_2 \ldots \square w_k : M'(q,w_1,w_2,\ldots) = 1$.
+This can rewritten as $M(x) = 1 \Leftrightarrow \exists y, q, a, w_1 \forall w_2 \ldots \square w_k : M'(q,w_1,\ldots) = 1 \wedge \exists y, q, a \forall w_1 \exists w_2 \ldots \square w_k : M'(q,w_1,\ldots)=1$. This means that $L \in \Sigma_k+1 \cap \Sigma_k \Leftrightarrow L \in \Sigma_k$.
+
+Similarly, if the oracle's answer is $a=0$, then $q \not \in L' \Leftrightarrow q \not \in \Sigma_k \cap \Pi_k \Leftrightarrow \forall w'_1 \exists w'_2 \ldots \square w'_k : M'(q,w'_1,w'_2,\ldots) = 0 \Leftrightarrow \exists w'_1 \forall w'_2 \ldots \square w'_k : M'(q,w'_1,w'_2,\ldots) = 0$.
+I will rewrite this as $M(x) = 0 \Leftrightarrow \exists y, q, a, \forall w'_1 \exists w'_2 \ldots \square w'_k : M'(q',w'_1,\ldots) = 0 \wedge \exists y, q, a w'_1 \exists w'_2 \ldots \square w'_k : M'(q,w'_1,\ldots)=0$.
+This means that $L \in \Sigma_{k+1} \cap \Sigma_k \Leftrightarrow L \in \Sigma_k$.
+
+This shows that $\NP^{\Sigma_k \cap \Pi_k} \subseteq \Sigma_k$.
+Therefore, $\NP^{\Sigma_k \cap \Pi_k} = \Sigma_{k}, \forall k$.
 \end{proof}
 
 \end{document}
