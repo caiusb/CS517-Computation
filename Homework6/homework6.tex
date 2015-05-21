@@ -1,0 +1,141 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[paper=letterpaper,margin=1in]{geometry}
+
+
+%% minimal example of some latex stuff
+
+\usepackage{xspace,graphicx,amsmath,amsthm,amssymb,xcolor}
+
+
+\newtheorem{theorem}{Theorem}
+
+%% code boxes
+
+\usepackage{varwidth}
+\newcommand{\fcodebox}[1]{%
+    \framebox{\codebox{#1}}%
+}
+\newcommand{\codebox}[1]{%
+        \begin{varwidth}{\linewidth}%
+        \begin{tabbing}%
+            ~~~\=\quad\=\quad\=\quad\=\quad\=\quad\=\kill
+            #1
+        \end{tabbing}%
+        \end{varwidth}%
+}
+
+%% complexity classes
+
+\newcommand{\cc}[1]{\ensuremath{\textsf{#1}}\xspace}
+\renewcommand{\P}{\cc{P}}
+\newcommand{\NP}{\cc{NP}}
+\newcommand{\EXP}{\cc{EXP}}
+\newcommand{\coNP}{\cc{coNP}}
+\renewcommand{\L}{\cc{L}}
+\newcommand{\NL}{\cc{NL}}
+\newcommand{\PH}{\cc{PH}}
+\newcommand{\PSPACE}{\cc{PSPACE}}
+\newcommand{\Ppoly}{\cc{P/poly}}
+\newcommand{\ZPP}{\cc{ZPP}}
+\newcommand{\BPP}{\cc{BPP}}
+\newcommand{\RP}{\cc{RP}}
+\newcommand{\sharpP}{\cc{$\sharp$P}}
+\newcommand{\AM}{\cc{AM}}
+\newcommand{\MA}{\cc{MA}}
+\newcommand{\IP}{\cc{IP}}
+
+
+\newcommand{\DTIME}{\cc{DTIME}}
+\newcommand{\NTIME}{\cc{NTIME}}
+\newcommand{\DSPACE}{\cc{DSPACE}}
+\newcommand{\NSPACE}{\cc{NSPACE}}
+\newcommand{\SIZE}{\cc{SIZE}}
+
+
+\newcommand{\karp}{\le_{\textsf{P}}}
+\newcommand{\logred}{\le_{\textsf{L}}}
+
+%% decision problems
+
+\newcommand{\prob}[1]{\ensuremath{\textsc{#1}}\xspace}
+\newcommand{\SAT}{\prob{sat}}
+\newcommand{\ThreeSAT}{\prob{3sat}}
+
+%% homework templates
+
+\newcounter{problem}
+\newcounter{subproblem}[problem]
+
+\newenvironment{problem}%
+{%
+	\stepcounter{problem}%
+	\textbf{\theproblem.}
+	\large
+}{\\}%
+
+\newenvironment{subproblem}%
+{%
+	\stepcounter{subproblem}%
+	\textbf{\alph{subproblem})}
+	\large
+}{\\}%
+
+%%%%
+
+\newcommand{\tm}{Turing Machine}
+\newcommand{\beq}{\begin{equation}}
+\newcommand{\eeq}{\end{equation}}
+
+%%%%
+
+\title{Homework 6}
+\author{Caius Brindescu}
+
+\begin{document}
+
+\maketitle
+
+\begin{problem}
+An oracle TM $M$ is {\bf downward-querying} if on input of length $n$, every query to the oracle has length strictly less than $n$. 
+A decision problem $X$ is {\bf downward self-reducible} if $X = L(M^X)$ for some downward-querying, polynomial-time oracle TM $M$. 
+Note that $M$ has oracle access to the problem that it is trying to solve, but when trying to determine whether $x \in X$, the TM cannot simply query its oracle on $x$ for the answer.
+\end{problem}
+
+\begin{subproblem}
+Show that TQBF is downward self-reducible. 
+What assumptions are you making about how formulas are encoded into bit strings?
+\end{subproblem}
+
+\begin{proof}
+\end{proof}
+
+%%%%%%%%%%%%%%%%
+
+\begin{subproblem}
+Prove that if $L$ is downward self-reducible then $L \in PSPACE$.
+\end{subproblem}
+
+\begin{proof}
+\end{proof}
+
+%%%%%%%%%%%%%%%%%%
+
+\begin{problem}
+Prove that logspace reductions are transitive. 
+That is, if $A \logred B$ and $B \logred C$ then $A \logred C$.
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+%%%%%%%%%%%%%%
+
+\begin{problem}
+Show that $\P/1$ (i.e., languages computable by polynomial-time TMs with 1 bit of advice) contains undecidable problems.
+\end{problem}
+
+\begin{proof}
+\end{proof}
+
+\end{document}
