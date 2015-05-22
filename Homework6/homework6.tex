@@ -157,6 +157,32 @@ That is, if $A \logred B$ and $B \logred C$ then $A \logred C$.
 \end{problem}
 
 \begin{proof}
+The fact that $A \logred B$, then $\exists f : x \in A \Rightarrow f(x) \in B$.
+And, if $B \logred C$, then $\exists g : x \in A \Rightarrow g(x) \in C$.
+Then, $A \logred C$ can be written as $\exists h: x \in A \Rightarrow h(x) \in C \mbox{ and } h = f \circ g$.
+
+First of all, the traditional way of proving transitivity does not work for logspace. 
+Let $M_f$ be a \tm{} that computes $f$, and $M_g$ a \tm{} that computes $g$.
+Both $M_f$ and $M_g$ can run in logspace. 
+I cannot compute $h(x)$, by computing the output of $M_g$ on input $x$ and then using it's output as input for $f$.
+The output of $M_g$ might not fit in logarithmic space.
+
+To prove this, I will have to give the input for $M_B$ one at a time.
+I will define the following \tm{} $M_h$:
+
+\fcodebox{
+\underline{on input $M_f$, $M_g$, $x$:} \\
+\> run $M_g$ until it asks for a cell $i$ of the input tape \\
+\> suspend $M_g$ \\
+\> run $M_f$ on input $x$ until it outputs cell $i$ of the input tape \\
+\> resume $M_g$ with the calculated input \\
+\> repeat until $M_g$ accepts, then accept
+}
+
+The input for $M_h$ is given to $M_f$ and the output tape is the same as the output tape of $M_g$.
+
+$M_h$ requires the space for running $M_f$ and $M_g$ and the space needed to store the cell $i$ that $M_g$ wants to read and space to store the actual output of $M_f$ for that cell.
+This means that $M_h$ runs in logspace.
 \end{proof}
 
 %%%%%%%%%%%%%%
