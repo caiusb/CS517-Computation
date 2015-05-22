@@ -108,6 +108,26 @@ What assumptions are you making about how formulas are encoded into bit strings?
 \end{subproblem}
 
 \begin{proof}
+\[
+	TQBF = \{\phi \mid \exists x_1, \forall x_2, \ldots \square x_k: \phi(x_1,x2,\ldots x_k) = 1\}
+\]
+I am assuming that the input tape first contains the representation of the boolean variables, as a set of strings.
+After that, we have the formula, written in terms of those variables and boolean operators. 
+
+Let $M^{TQBF}$ be a \tm{} that can decide $TQBF$.
+It is downward querying. 
+I define it as follows:
+
+\fcodebox{
+\underline{$M^X$ on input $x$:} \\
+\> nondeterministically choose first variable, $x_1$. \\
+\> query the oracle $X$ with the variable $x_1$ set \\
+\> if oracle accepts, accept \\
+\> else reject
+}
+
+$M \in \NP$, therefore it runs in polynomial time.
+Therefore, $TQBF$ is downward self-reducible.
 \end{proof}
 
 %%%%%%%%%%%%%%%%
@@ -117,6 +137,16 @@ Prove that if $L$ is downward self-reducible then $L \in PSPACE$.
 \end{subproblem}
 
 \begin{proof}
+According to the definition, $L = L(M^L)$, where $M$ is a polynomial time \tm{}.
+Trivially, $M \in \PSPACE$, because $\P \subset \PSPACE$.
+
+Because L is downward self-reducible, I know that it makes queries strictly shorter than it's input.
+If we chose to replace the oracle with a \tm{} $M'^L$, then $M'$ will also run in polynomial time.
+Since $M$ runs in polynomial time it can, at most, do a polynomial number of queries to the oracle.
+Therefore, it also runs in polynomial time.
+
+I can do this recursively, until I inline all the oracles, and I will still get a \tm{} that runs in polynomial time.
+Therefore, I can conclude that $L \in PSPACE$.
 \end{proof}
 
 %%%%%%%%%%%%%%%%%%
@@ -136,6 +166,8 @@ Show that $\P/1$ (i.e., languages computable by polynomial-time TMs with 1 bit o
 \end{problem}
 
 \begin{proof}
+Such a machine could solve the halting problem.
+Let the input be the encoding a \tm{} $M$ and the advice be if it halts or not.
 \end{proof}
 
 \end{document}
