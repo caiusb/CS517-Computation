@@ -105,6 +105,13 @@ Show that $\NP \subseteq \PP$.
 \end{problem}
 
 \begin{proof}
+I will use a proof similar to the one used to prove that $\BPP \subseteq \Ppoly$.
+
+An $\NP$ problem is defined as $\{x \mid \exists w : M_P(x,w) = 1\}$, where $M_P$ is a deterministic \tm{} that runs in polynomial time.
+If $x \in L$, then $\exists r : M(x,r) = 1$
+From the definition, I know that the probability of finding r is greater than $1/2$.
+Therefore, $r$ can serve as my witness in the $\NP$ problem.
+
 \end{proof}
 %%%%%%%
 
