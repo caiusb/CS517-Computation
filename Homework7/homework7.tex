@@ -40,6 +40,8 @@
 \newcommand{\ZPP}{\cc{ZPP}}
 \newcommand{\BPP}{\cc{BPP}}
 \newcommand{\RP}{\cc{RP}}
+\newcommand{\PP}{\cc{PP}}
+\newcommand{\ePP}{\cc{ePP}}
 \newcommand{\sharpP}{\cc{$\sharp$P}}
 \newcommand{\AM}{\cc{AM}}
 \newcommand{\MA}{\cc{MA}}
@@ -54,6 +56,8 @@
 
 
 \newcommand{\karp}{\le_{\textsf{P}}}
+\newcommand{\Prob}{\mbox{Pr}}
+\newcommand{\Time}[1]{\mbox{time}#1}
 
 %% decision problems
 
@@ -95,4 +99,43 @@
 
 \maketitle
 
+\begin{problem}
+$L \in \PP$ iff there exists a PPT $M$ so that $L = \{ x \mid \Prob[M(x) = 1] > 1/2\}$.
+Show that $\NP \subseteq \PP$.
+\end{problem}
+
+\begin{proof}
+\end{proof}
+%%%%%%%
+
+\begin{problem}
+Let M be a probabilistic TM, and let $\Time(M,x)$ denote the number of steps taken by $M$ on input $x$.
+Not that $\Time(M,x)$ is a {\it random variable} as well.
+
+A probabilistic TM $M$ runs in {\bf strict polynomial-time} if there is a polynomial $p$ such that for all $x$, $\Prob[\Time(M,x) \leq p(|x|)] =1$. 
+I.e., $M$ {\it always} takes at most $p(|x|)$ steps.
+
+A probabilistic TM $M$ runs in {\bf expected polynomial-time} if there is a polynomial $p$ such that for all $x$, $\mathbb{E}[\Time(M,x)] \leq p(|x|)$.
+
+The standard complexity classes $\PP$, $\BPP$, etc., are defined in terms of {\bf strict} polynomial time.
+
+Define $\ePP$, to be the same as $\PP$, except we allow the \tm{} to be {\bf expected}-polynomial time.
+That is, $L \in \ePP$ if there exists an expected-poly-time probabilistic TM $M$ with $L = \{ x \mid \Prob[M(x) = 1] > 1/2\}$.
+
+Show that $\EXP \subseteq \ePP$.
+In fact, it is possible to show that $\EXP$ can be decided (in the $\PP$ sense) by expected-{\it constant-time} probabilistic TMs.
+\end{problem}
+
+\begin{problem}
+Let $L$ be a problem in $\RP$, so that:
+\begin{align*}
+	x \in L &\Rightarrow \Prob[M(x) = 1] \geq 1/2 \\
+	x \not \in L &\Rightarrow \Prob[M(x) = 0] = 1
+\end{align*}
+Show that for each $n$, there exists a set $R$ of random tapes for $M$ with $|R| = n$ and satisfying the following property:
+\[
+	x \in L \Leftrightarrow \exists r \in R : M(x;r) = 1
+\]
+Show how this gives an alternate proof that $\RP \subseteq \Ppoly$.
+\end{problem}
 \end{document}
