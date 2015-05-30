@@ -136,13 +136,32 @@ I.e., $M$ {\it always} takes at most $p(|x|)$ steps.
 A probabilistic TM $M$ runs in {\bf expected polynomial-time} if there is a polynomial $p$ such that for all $x$, $\mathbb{E}[\Time(M,x)] \leq p(|x|)$.
 
 The standard complexity classes $\PP$, $\BPP$, etc., are defined in terms of {\bf strict} polynomial time.
-
+-
 Define $\ePP$, to be the same as $\PP$, except we allow the \tm{} to be {\bf expected}-polynomial time.
 That is, $L \in \ePP$ if there exists an expected-poly-time probabilistic TM $M$ with $L = \{ x \mid \Prob[M(x) = 1] > 1/2\}$.
 
 Show that $\EXP \subseteq \ePP$.
 In fact, it is possible to show that $\EXP$ can be decided (in the $\PP$ sense) by expected-{\it constant-time} probabilistic TMs.
 \end{problem}
+
+\begin{proof}
+
+Let $L \in \ePP$.
+Let $M$ be a PPT \tm{} that decides $L$, for input $x$, with $\Prob > 1/2$.
+If $x \in L$, let $R_x$ the set of random input tapes, such that $M(x,r)=1$.
+Similarly, $R_{\bar{x}}$ is the set of random input tapes, such that $M(x,r)=0$.
+By definition, the probability of a random tape, $r$ to be in $R_x$, is $1/2$.
+The total universe of random tapes is $R = R_x \cap R_{\bar{x}}$
+The average running time is defined by:
+\[
+	T(M(x)) = \frac{\sum\limits_{x \in R} T(M(x,r))}{|R|}
+\]
+This implies that I take into account {\it all} possible execution for input $x$.
+While for some $r$, the execution will take polynomial time, for most cases, it runs in polynomial time.
+So the average of all these should be a polynomial time bound.
+\end{proof}
+
+%%%%%%%%%%%%
 
 \begin{problem}
 Let $L$ be a problem in $\RP$, so that:
@@ -156,4 +175,10 @@ Show that for each $n$, there exists a set $R$ of random tapes for $M$ with $|R|
 \]
 Show how this gives an alternate proof that $\RP \subseteq \Ppoly$.
 \end{problem}
+
+\begin{proof}
+Let $R_n$ be the set of random tapes $R$ such that $|R| = n$, where $n = |x|$.
+Therefore, $x \in L \Leftrightarrow \exists r \in R_n : M(x;r) = 1, n = |x|$.
+\end{proof}
+
 \end{document}
