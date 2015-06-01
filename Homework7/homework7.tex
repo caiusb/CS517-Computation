@@ -206,7 +206,7 @@ Show how this gives an alternate proof that $\RP \subseteq \Ppoly$.
 \begin{proof}
 Similarly to the proof done in class for $\BPP \subseteq \Ppoly$, I will use Chernoff's bounds to amply the correctness of my \tm{}:
 \begin{align*}
-	x \in L &\Rightarrow \Prob[M(x)=1] \geq 1-2^{{-|x|}^2} \\
+	x \in L &\Rightarrow \Prob[M(x)=1] \geq 1-2^{-|x|} \\
 	x \not \in \L &\Rightarrow \Prob[M(x) = 0] = 1
 \end{align*}
 %
@@ -215,7 +215,7 @@ The probability that $r$ is bad for a particular $x$ is:
 	\Prob[r \mbox{ is bad for } x] < 2^{-n^c}
 \]
 %
-Thefore, the probility of $r$ not existing is:
+Therefore, the probability of $r$ not existing is:
 %
 \begin{align*}
 	\Prob [\forall r \in R : M(x;r) = 0] &= \Prob[r \mbox{ is bad for any } x] \cdot \Prob[r \in R] \\
