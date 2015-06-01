@@ -146,19 +146,46 @@ In fact, it is possible to show that $\EXP$ can be decided (in the $\PP$ sense) 
 
 \begin{proof}
 
-Let $L \in \ePP$.
-Let $M$ be a PPT \tm{} that decides $L$, for input $x$, with $\Prob > 1/2$.
-If $x \in L$, let $R_x$ the set of random input tapes, such that $M(x,r)=1$.
-Similarly, $R_{\bar{x}}$ is the set of random input tapes, such that $M(x,r)=0$.
-By definition, the probability of a random tape, $r$ to be in $R_x$, is $1/2$.
-The total universe of random tapes is $R = R_x \cap R_{\bar{x}}$
-The average running time is defined by:
-\[
-	T(M(x)) = \frac{\sum\limits_{x \in R} T(M(x,r))}{|R|}
-\]
-This implies that I take into account {\it all} possible execution for input $x$.
-While for some $r$, the execution will take polynomial time, for most cases, it runs in polynomial time.
-So the average of all these should be a polynomial time bound.
+I will define the following \tm{} $M_{\ePP}$, where M is an $\EXP$-time \tm{}:
+
+\fcodebox{
+\underline{on input $(M,x,r)$:} \\
+\> if $r$ contains only ones, then \\
+\> \> simulate $M$ on $x$ \\
+\> \> if $M$ accepts, accept \\
+\> \> else reject \\
+\> else \\
+\> \> simulate $M$ for $p(|x|)$ steps: \\
+\> \> if $M$ accepts, accept \\
+\> \> if $M$ rejects, reject \\
+\> \> if $M$ does not finish, accept w/ probability $1/2$
+}
+
+The \tm{} will take as input a random tape of size $p(|x|)$.
+This way, the probability of it containing only the symbol $1$ is $\frac{1}{2^{p(|x|)}}$.
+Let $r_1$ be this tape, and $n=|x|$.
+
+The {\it expected running time} of this machine is:
+%
+\begin{align*}
+	T(M_{\ePP}(M,x)) &= \frac{\Prob[r = r_i]*2^{p(n)} + \sum\limits_{r \in R \setminus \{r_1\}} p(n)}{|R|} \\
+		&= \frac{\frac{1}{2^{p(n)}} 2^{p(n)} + 2^{p(n)-1}p(n)}{2^{p(n)}} \\
+		&= \frac{1+2^{p(n)-1}p(n)}{2^{p(n)}} \\
+		&\leq p(n)
+\end{align*}
+%
+This shows that the expected-running-time of this machine is polynomial.
+The probability that it accepts if $x \in L$ is:
+%
+\begin{align*}
+	\Prob[M(x) =1] &= \Prob[r = r_i] + \frac{1}{2} \\
+		&= \frac{1}{2^{p(n)}} + \frac{1}{2} \\
+		&\geq \frac{1}{2}
+\end{align*}
+%
+Therefore $M_{\ePP} \in \ePP$ and it can simulate any $M \in \EXP$.
+This proves that $\EXP \subseteq \ePP$.
+
 \end{proof}
 
 %%%%%%%%%%%%
