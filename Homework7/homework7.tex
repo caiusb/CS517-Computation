@@ -215,10 +215,10 @@ The probability that $r$ is bad for a particular $x$ is:
 	\Prob[r \mbox{ is bad for } x] < 2^{-n^c}
 \]
 %
-Thefore, the probility of $r$ existing is:
+Thefore, the probility of $r$ not existing is:
 %
 \begin{align*}
-	\Prob [\exists r \in R : M(x;r) = 1] &= \Prob[r \mbox{ is good for any } x] \cdot \Prob[r \in R] \\
+	\Prob [\forall r \in R : M(x;r) = 0] &= \Prob[r \mbox{ is bad for any } x] \cdot \Prob[r \in R] \\
 		&= \sum_{x \in \{0,1\}^n} \Prob[r \mbox{ is bad for particular x }] \cdot \frac{n}{2^{n^c}} \\
 		&= \frac{2^n}{2^{n^c}} \frac{n}{2^{n^{c-1}}} \\
 		&= \frac{1}{2^{n^{c-1}}} \frac{n}{2^{n^{c-1}}} \\
