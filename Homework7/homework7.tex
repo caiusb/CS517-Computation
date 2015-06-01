@@ -204,6 +204,31 @@ Show how this gives an alternate proof that $\RP \subseteq \Ppoly$.
 \end{problem}
 
 \begin{proof}
+Similarly to the proof done in class for $\BPP \subseteq \Ppoly$, I will use Chernoff's bounds to amply the correctness of my \tm{}:
+\begin{align*}
+	x \in L &\Rightarrow \Prob[M(x)=1] \geq 1-2^{{-|x|}^2} \\
+	x \not \in \L &\Rightarrow \Prob[M(x) = 0] = 1
+\end{align*}
+%
+The probability that $r$ is bad for a particular $x$ is:
+\[
+	\Prob[r \mbox{ is bad for } x] < 2^{-n^c}
+\]
+%
+Thefore, the probility of $r$ existing is:
+%
+\begin{align*}
+	\Prob [\exists r \in R : M(x;r) = 1] &= \Prob[r \mbox{ is good for any } x] \cdot \Prob[r \in R] \\
+		&= \sum_{x \in \{0,1\}^n} \Prob[r \mbox{ is bad for particular x }] \cdot \frac{n}{2^{n^c}} \\
+		&= \frac{2^n}{2^{n^c}} \frac{n}{2^{n^{c-1}}} \\
+		&= \frac{1}{2^{n^{c-1}}} \frac{n}{2^{n^{c-1}}} \\
+		&= \frac{n}{2^{2n^{c-1}}} \\
+		&< 1
+\end{align*}
+This shows that $\exists r \in R: M(x,r) = 1$.
+This $r$ can be considered as a circuit that can be given to a $P$-time \tm{} as advice.
+The maximum length of $r$ has to be polynomial, since the $\RP$ \tm{} must finish in polynomial time.
+This proves that $\RP \subseteq \Ppoly$.
 \end{proof}
 
 \end{document}
