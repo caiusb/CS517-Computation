@@ -152,4 +152,20 @@ So that's two parts: $\AM \subseteq \NP/\textsf{poly}$ and $\AM \subseteq \coNP/
 Note that $\NP/\textsf{poly}$ is the class of languages decided by NPTMs with polynomial advice. 
 \end{problem}
 
+\begin{proof}
+I will first prove that $\AM \subseteq \NPpoly$.
+
+First, I will {\bf arithmetize} the boolean formula $\psi$, and get a polynomial $P_\psi$.
+
+The $\textsc{3CNF}$ formula will be converted by replacing all the or's ($\vee$) with addition ($+$) and all the and's ($\wedge$) with multiplication ($\cdot$). 
+Also, the boolean variable $x_i$ will be replaced with an integer variable $X_i$, and negation is written as $1-X_i$.
+
+The total degree of the polynomial $P_\psi$ is the total number of clauses in $\psi$.
+I will use $m$ to denote the total number of clauses, and, therefore, the degree of $P_\psi$.
+
+$\psi$ satisfiable $\Leftrightarrow \exists$ an assignment $\vec{X}=\{X_1,X_2,...\}$ for $P_\psi$ such that $P_\psi(X) \neq 0$.
+
+Next, I will perform a {\bf multivariate polynomial test}.
+\end{proof}
+
 \end{document}
