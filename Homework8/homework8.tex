@@ -144,10 +144,22 @@ Prove that $\AM = \{ L \mid L \randreduc \ThreeSAT \}$.
 \end{problem}
 
 \begin{proof}
+$\AM$ is defined a interactive proof system such that:
+\begin{align*}
+	x \in L &\Rightarrow \exists \pi \forall r : V(x,\pi,r) = 1 \\
+	x \not \in L &\Rightarrow \forall \pi : \underset{r}{\Pr}[V(x,\pi,r)=1] \leq 1/2
+\end{align*}
+
+To simplify things, I will name $\mathcal{L} = \{ L \mid L \randreduc \ThreeSAT \}$.
+I will have to prove two statements: $\AM \subseteq \mathcal{L}$ and $\AM \supseteq \mathcal{L}$. 
+
+First I will prove that $\AM \supseteq \mathcal{L}$.
+This means that $\mathcal{L}$ has an $\AM$ proof.
+
+
 \end{proof}
 
 %%%%%%%%%%%%%
-
 \begin{problem}
 Prove that $\AM \subseteq \NP/\textsf{poly} \cap \coNP/\textsf{poly}$. 
 \end{problem}
