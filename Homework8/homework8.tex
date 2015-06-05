@@ -156,19 +156,50 @@ Note that $\NP/\textsf{poly}$ is the class of languages decided by NPTMs with po
 \end{problem}
 
 \begin{proof}
-I will first prove that $\AM \subseteq \NPpoly$.
+Let $L \in \AM$ and let $M(x,r)$ be a \tm{} with the properties:
+\begin{align*}
+	x \in L &\Rightarrow \exists \pi \forall r : V(x,\pi,r) = 1 \\
+	x \not \in L &\Rightarrow \forall \pi  : \underset{r}{\Pr}[V(x,\pi,r) =1] \leq 1/2
+\end{align*}
+$M \in \AM$, and it uses a verifier $V \in \P$ and a all-powerful prover $P$.
+We can amplify the correctness such that the probability of error is arbitrarily small.
+If we run $M$ $n$ times, then the following probabilies will hold (because of the Chernoff Bound):
+\begin{align*}
+	x \in L &\Rightarrow \Pr[V(x,\pi,r) =1] = 1 \\
+	x \not \in L &\Rightarrow \underset{r}{\Pr}[V(x,\pi,r) = 1] \leq \frac{1}{2^{n^2}}.
+\end{align*}
+This means that the probability of error is arbitrarily small.
 
-First, I will {\bf arithmetize} the boolean formula $\psi$, and get a polynomial $P_\psi$.
+To simulate an arbitrary $AM$ machine, I will need to find a circuit, represented by $r$, such that my $\NPpoly$ machine will always correctly decide if $x \in L$.
 
-The $\textsc{3CNF}$ formula will be converted by replacing all the or's ($\vee$) with addition ($+$) and all the and's ($\wedge$) with multiplication ($\cdot$). 
-Also, the boolean variable $x_i$ will be replaced with an integer variable $X_i$, and negation is written as $1-X_i$.
+I will now show that there exists such a circuit $r$.
+Writing this in terms of the $\AM$ machine:
+\[
+	\exists r \forall x \in \{0,1\}^n \exists{\pi}: V(x,\pi,r) = 1
+\]
+The probability that $r$ is bad for any $x$ of input $n$ is:
+\begin{align*}
+	\Pr[\nexists r, \forall x \in \{0,1\}^n, \exists \pi: V(x,\pi,r) = 1] &= \sum_{x \in \{0,1\}^n} Pr[\nexists r \forall \pi: V(x,\pi,r) = 1] \\
+	&= 2^n \frac{1}{2^{n^2}} = \frac{1}{2^n} \ll 1
+\end{align*}
+Therefore, there exists an $r$ of polynomial length\footnote{The prover has to generate this string. Since it only has a polynomial amount of time available, the length of any random string it can generate will be of polynomial length} that can be given as advice to the $\NPpoly$ machine such that it will correctly decide $x \in L$.
+This shows that $\AM \subseteq \NPpoly$.
 
-The total degree of the polynomial $P_\psi$ is the total number of clauses in $\psi$.
-I will use $m$ to denote the total number of clauses, and, therefore, the degree of $P_\psi$.
+I will now show that $\AM \subseteq \coNPpoly$.
+Similarly to the previous case, I will show that I can find a poly-length string $r$ that can be used as advice.
+Formally, I will have to show:
+\[
+	\exists r : \forall \pi V(x,\pi,r) = 1
+\]
+Again, I will show that such an $r$ can exists, for $x$ of length $n$:
+\begin{align*}
+	\Pr[\nexists r, \forall \pi, \forall x \in \{0,1\}^n : V(x,\pi,r) = 1] &= \prod_{x \in \{0,1\}} \Pr[\nexists r \forall \pi : V(x,\pi,r) = 1] \\
+	&= \Big(\frac{1}{2^{n^2}}\Big)^{2^n} \ll 1
+\end{align*}
+Therefore, such an $r$ exists, and it can be used as advice for our $\coNPpoly$ machine.
+This shows that $\AM \subseteq \coNPpoly$.
 
-$\psi$ satisfiable $\Leftrightarrow \exists$ an assignment $\vec{X}=\{X_1,X_2,...\}$ for $P_\psi$ such that $P_\psi(X) \neq 0$.
-
-Next, I will perform a {\bf multivariate polynomial test}.
+This proves that $\AM \subseteq \NPpoly \cap \coNPpoly$.
 \end{proof}
 
 \end{document}
