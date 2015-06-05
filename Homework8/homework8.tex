@@ -103,6 +103,27 @@ Show that $L \in \NP$.
 \end{problem}
 
 \begin{proof}
+
+If $L \in \NP$ then $L = \{ x | \exists w : M(x,w) = 1\}$, where $M$ is a deterministic \tm{} that runs in $\P$ time.
+
+Since L has an $\AM$ proof with no error, it can written as:
+\begin{align*}
+	x \in L &\Rightarrow \exists \pi \forall r : M(x,\pi,r) = 1 \\
+	x \not \in L &\Rightarrow \forall \pi : \underset{r}{\Pr}[M(x,\pi,r) = 1] = 0;
+\end{align*}
+
+This can be rewritten as:
+\[
+	x \not \in L \Rightarrow \forall \pi \nexists r: M(x,\pi,r) = 1
+\]
+
+This means that there is no random string $r$ that Arthur can send such that Merlin can falsely convince him that $x \in L$.
+That means that Merlin will never be able to convince Arthur if $x \not \in L$.
+
+The definition of $x \in L$ is same as the definition of $\NP$ language.
+That means, that for any random string $r$ that Arthur sends, Merlin can find a witness, $\pi$, that can be verified in $\P$ time.
+Therefore, any problem in $\NP$ can be expressed using an $\AM$ proof with zero error, where Merlin simply gives Arthur a witness.
+
 \end{proof}
 
 %%%%%%%%%%%%
